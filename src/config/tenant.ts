@@ -26,6 +26,7 @@ export type TenantConfig = {
     logo: string
     favicon: string
     hero: string
+    heroMobile: string
     website: string
     catalogUrl: string
   }
@@ -92,7 +93,8 @@ export const tenant: TenantConfig = {
     shortName: 'FACE ID',
     logo: '/brand/logo.jpg',
     favicon: '/brand/logo.jpg',
-    hero: '/brand/hero.svg',
+    hero: '/brand/hero.jpg',
+    heroMobile: '/brand/hero-mobile.jpg',
     website: 'https://www.tiendafaceid.com/',
     catalogUrl: '',
   },

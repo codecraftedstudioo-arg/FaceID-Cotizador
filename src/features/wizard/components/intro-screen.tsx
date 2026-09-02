@@ -421,23 +421,36 @@ export function IntroScreen() {
         )}
       </div>
 
-      {/* Hero Section */}
-      <section className="relative bg-bg overflow-hidden">
-        <div className="mx-auto max-w-3xl px-5 sm:px-6 pt-10 pb-12 sm:pt-16 sm:pb-20 text-center">
+      {/* Hero Section — foto del local como fondo; overlay y blur solo en capas de imagen */}
+      <section className="relative overflow-hidden">
+        <div className="absolute inset-0 overflow-hidden pointer-events-none" aria-hidden="true">
+          <picture>
+            <source media="(min-width: 768px)" srcSet={tenant.brand.hero} />
+            <img
+              src={tenant.brand.heroMobile}
+              alt=""
+              className="hero-background absolute inset-0 h-full w-full object-cover object-[50%_18%] md:object-center scale-[1.06] blur-[2px]"
+            />
+          </picture>
+          <div className="absolute inset-0 bg-[#0f172a]/55 md:bg-[#0f172a]/48" />
+          <div className="absolute inset-0 bg-gradient-to-b from-[#111827]/35 via-transparent to-[#0f172a]/55 max-md:from-[#111827]/45 max-md:to-[#0f172a]/62" />
+        </div>
+
+        <div className="relative z-10 mx-auto flex min-h-[650px] w-full max-w-3xl flex-col items-center justify-center px-6 py-16 text-center sm:min-h-[700px] sm:px-8 sm:py-20 md:min-h-[740px] lg:min-h-[780px] lg:py-24">
           <span className="inline-flex items-center gap-1.5 text-[11px] sm:text-xs text-accent-contrast font-semibold tracking-widest uppercase mb-5 px-3 py-1.5 rounded-full border border-accent/40 bg-accent animate-fadeSlideIn">
             Plan Canje
           </span>
-          <h1 className="font-display text-[2rem] sm:text-5xl lg:text-6xl font-bold text-fg mb-4 leading-[1.12] tracking-tight animate-fadeSlideIn">
+          <h1 className="font-display text-[2rem] sm:text-5xl lg:text-6xl font-bold text-white mb-4 leading-[1.12] tracking-tight animate-fadeSlideIn drop-shadow-[0_2px_16px_rgba(0,0,0,0.35)]">
             Cambiá tu iPhone
             <span className="block">al mejor precio</span>
           </h1>
-          <p className="text-[15px] sm:text-lg text-fg-muted mb-8 leading-relaxed max-w-xl mx-auto animate-fadeSlideIn" style={{ animationDelay: '0.08s' }}>
+          <p className="text-[15px] sm:text-lg text-white/80 mb-8 leading-relaxed max-w-xl mx-auto animate-fadeSlideIn" style={{ animationDelay: '0.08s' }}>
             Cotizá en 1 minuto, elegí tu nuevo iPhone y pagás solo la diferencia.
           </p>
           <div className="mb-10 animate-fadeSlideIn" style={{ animationDelay: '0.12s' }}>
             <button
               onClick={startCotizar}
-              className="inline-flex items-center justify-center gap-2 px-7 py-3.5 min-h-12 rounded-[10px] text-[15px] font-semibold bg-cta text-cta-contrast hover:bg-cta-hover transition-colors"
+              className="inline-flex items-center justify-center gap-2 px-7 py-3.5 min-h-12 rounded-[10px] text-[15px] font-semibold bg-white text-[#1f2937] hover:bg-white/90 transition-colors"
             >
               Cotizar ahora
               <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
@@ -445,11 +458,11 @@ export function IntroScreen() {
               </svg>
             </button>
           </div>
-          <div className="grid grid-cols-2 sm:grid-cols-4 gap-6 text-left sm:text-center animate-fadeSlideIn" style={{ animationDelay: '0.16s' }}>
+          <div className="grid w-full grid-cols-2 sm:grid-cols-4 gap-x-4 sm:gap-x-6 gap-y-8 text-center animate-fadeSlideIn" style={{ animationDelay: '0.16s' }}>
             {heroStats.map((stat, i) => (
               <div key={i}>
-                <div className="font-display text-2xl font-bold text-fg">{stat.value}</div>
-                <div className="text-fg-subtle text-sm mt-0.5">{stat.label}</div>
+                <div className="font-display text-2xl font-bold text-white">{stat.value}</div>
+                <div className="text-white/65 text-[12px] sm:text-sm mt-0.5 leading-snug">{stat.label}</div>
               </div>
             ))}
           </div>
@@ -458,7 +471,7 @@ export function IntroScreen() {
               href={mapsUrl}
               target="_blank"
               rel="noopener noreferrer"
-              className="mt-8 inline-flex items-center gap-2 text-fg-muted hover:text-fg text-sm transition-colors"
+              className="mt-8 inline-flex items-center gap-2 text-white/80 hover:text-white text-sm transition-colors"
             >
               <svg className="w-4 h-4 text-accent" fill="currentColor" viewBox="0 0 24 24">
                 <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z" />
@@ -466,7 +479,7 @@ export function IntroScreen() {
               <span>{tenant.contact.address || 'Visitá nuestro local'}</span>
             </a>
           ) : (
-            <p className="mt-8 inline-flex items-center gap-2 text-fg-muted text-sm">
+            <p className="mt-8 inline-flex items-center gap-2 text-white/80 text-sm">
               <svg className="w-4 h-4 text-accent" fill="currentColor" viewBox="0 0 24 24">
                 <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z" />
               </svg>
