@@ -129,8 +129,8 @@ export function Step6Contact() {
             value={name}
             onChange={handleNameChange}
             placeholder={lang === 'es' ? 'Tu nombre' : 'Your name'}
-            className={`w-full px-4 py-3 rounded-xl bg-surface dark:bg-white/5 border text-fg placeholder:text-fg-subtle focus:outline-none transition-colors ${
-              nameTouched && nameTooShort ? 'border-red-500/60' : 'border-line focus:border-accent'
+            className={`w-full min-h-12 px-4 py-3 rounded-[10px] bg-surface border text-fg placeholder:text-fg-subtle focus:outline-none transition-colors ${
+              nameTouched && nameTooShort ? 'border-red-500/60' : 'border-line focus:border-fg'
             }`}
             autoComplete="name"
           />
@@ -156,8 +156,8 @@ export function Step6Contact() {
             value={phone}
             onChange={handlePhoneChange}
             placeholder={lang === 'es' ? 'Ej: 11 1234 5678' : 'e.g. 11 1234 5678'}
-            className={`w-full px-4 py-3 rounded-xl bg-surface dark:bg-white/5 border text-fg placeholder:text-fg-subtle focus:outline-none transition-colors ${
-              (phoneTouched || showInvalidPhone) && !phoneValid ? 'border-red-500/60' : 'border-line focus:border-accent'
+            className={`w-full min-h-12 px-4 py-3 rounded-[10px] bg-surface border text-fg placeholder:text-fg-subtle focus:outline-none transition-colors ${
+              (phoneTouched || showInvalidPhone) && !phoneValid ? 'border-red-500/60' : 'border-line focus:border-fg'
             }`}
             autoComplete="tel"
             inputMode="numeric"

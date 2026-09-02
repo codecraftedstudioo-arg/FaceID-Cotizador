@@ -5,10 +5,6 @@ interface CardProps {
   className?: string
 }
 
-/**
- * Card container for wizard steps
- * Dark theme - transparent, no extra background
- */
 export function Card({ children, className = '' }: CardProps) {
   return (
     <div className={className}>
@@ -24,10 +20,12 @@ interface CardHeaderProps {
 
 export function CardHeader({ title, subtitle }: CardHeaderProps) {
   return (
-    <div className="mb-5">
-      <h2 className="text-2xl font-bold text-fg">{title}</h2>
+    <div className="mb-6">
+      <h2 className="font-display text-[1.35rem] sm:text-2xl font-bold tracking-tight text-fg leading-tight">
+        {title}
+      </h2>
       {subtitle && (
-        <p className="mt-1 text-fg-muted text-sm">{subtitle}</p>
+        <p className="mt-1.5 text-fg-muted text-sm leading-relaxed">{subtitle}</p>
       )}
     </div>
   )

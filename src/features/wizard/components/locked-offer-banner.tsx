@@ -25,23 +25,18 @@ export function LockedOfferBanner() {
 
   return (
     <div
-      className="relative flex items-center gap-3 rounded-xl px-3 py-2.5 border border-amber-400/30"
-      style={{
-        background:
-          'linear-gradient(135deg, rgba(251,191,36,0.10) 0%, rgba(0,0,0,0) 70%)',
-        boxShadow: '0 0 0 1px rgba(251,191,36,0.05) inset',
-      }}
+      className="relative flex items-center gap-3 rounded-[10px] px-3 py-2.5 border border-accent/30 bg-accent/10"
       aria-live="polite"
     >
       <div
         className="flex items-center justify-center w-10 h-10 rounded-lg flex-shrink-0"
-        style={{ background: 'rgba(251,191,36,0.15)' }}
+        style={{ background: 'rgba(234, 179, 8, 0.2)' }}
       >
         <svg
           viewBox="0 0 24 24"
           className="w-5 h-5"
           fill="none"
-          stroke="#FBBF24"
+          stroke="#ca9a06"
           strokeWidth="2"
           strokeLinecap="round"
           strokeLinejoin="round"
@@ -53,7 +48,7 @@ export function LockedOfferBanner() {
       </div>
 
       <div className="flex-1 min-w-0">
-        <p className="text-[10px] font-bold tracking-[0.18em] text-amber-400 leading-none mb-1">
+        <p className="text-[10px] font-bold tracking-[0.18em] text-accent-contrast/80 leading-none mb-1">
           OFERTA BLOQUEADA
         </p>
         <p className="leading-none">

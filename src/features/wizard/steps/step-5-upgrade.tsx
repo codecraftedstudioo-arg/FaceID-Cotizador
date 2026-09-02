@@ -74,11 +74,11 @@ export function Step5Upgrade() {
           <button
             type="button"
             onClick={handleWantsUpgrade}
-            className="relative w-full p-4 min-h-20 rounded-xl text-left group transition-all bg-accent hover:bg-accent-hover shadow-lg shadow-accent/30 dark:bg-green-500/15 dark:hover:bg-green-500/25 dark:border-2 dark:border-green-500 dark:shadow-[0_0_25px_-8px_rgba(34,197,94,0.5)]"
+            className="relative w-full p-4 min-h-20 rounded-[10px] text-left group transition-all bg-cta hover:bg-cta-hover"
           >
             <div className="flex items-center gap-3">
-              <div className="w-10 h-10 rounded-lg bg-white/20 dark:bg-green-500/30 flex items-center justify-center flex-shrink-0">
-                <svg className="w-5 h-5 text-white dark:text-green-400" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" viewBox="0 0 24 24">
+              <div className="w-10 h-10 rounded-lg bg-accent flex items-center justify-center flex-shrink-0">
+                <svg className="w-5 h-5 text-accent-contrast" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" viewBox="0 0 24 24">
                   <path d="M21 12a9 9 0 0 0-15-6.7L3 8" />
                   <path d="M3 3v5h5" />
                   <path d="M3 12a9 9 0 0 0 15 6.7l3-2.7" />
@@ -86,10 +86,10 @@ export function Step5Upgrade() {
                 </svg>
               </div>
               <div className="flex-1 min-w-0">
-                <p className="font-semibold text-white">
+                <p className="font-semibold text-cta-contrast">
                   {lang === 'es' ? 'Plan Canje' : 'Trade-in Plan'}
                 </p>
-                <p className="text-xs text-white/80 dark:text-white/60 mt-0.5">
+                <p className="text-xs text-cta-contrast/70 mt-0.5">
                   {lang === 'es' ? 'Usá tu iPhone como parte de pago' : 'Use your iPhone as part payment'}
                 </p>
               </div>
@@ -101,16 +101,16 @@ export function Step5Upgrade() {
           <button
             type="button"
             onClick={handleJustSell}
-            className="w-full p-4 min-h-20 rounded-xl border-2 border-line bg-surface dark:bg-white/5 hover:border-accent/50 hover:bg-accent/5 transition-all text-left group"
+            className="w-full p-4 min-h-20 rounded-[10px] border border-line bg-surface hover:border-line-strong hover:bg-bg-subtle transition-all text-left group"
           >
             <div className="flex items-center gap-3">
-              <div className="w-10 h-10 rounded-lg bg-accent/10 dark:bg-green-500/20 flex items-center justify-center flex-shrink-0">
-                <svg className="w-5 h-5 text-accent dark:text-green-400" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" viewBox="0 0 24 24">
+              <div className="w-10 h-10 rounded-lg bg-bg-subtle flex items-center justify-center flex-shrink-0">
+                <svg className="w-5 h-5 text-fg" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" viewBox="0 0 24 24">
                   <path d="M12 1v22M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6" />
                 </svg>
               </div>
               <div className="flex-1 min-w-0">
-                <p className="font-semibold text-fg group-hover:text-accent dark:group-hover:text-green-300 transition-colors">
+                <p className="font-semibold text-fg">
                   {lang === 'es' ? 'Solo quiero vender' : 'I just want to sell'}
                 </p>
                 <p className="text-xs text-fg-subtle mt-0.5">
@@ -235,7 +235,7 @@ export function Step5Upgrade() {
                       }}
                       className={`flex items-center gap-2 px-3 py-2 rounded-xl border transition-all text-sm ${
                         state.upgradeColor === color
-                          ? 'border-accent bg-accent/10 text-fg'
+                          ? 'border-fg bg-fg/[0.04] text-fg'
                           : 'border-line bg-surface dark:bg-white/5 text-fg-muted hover:border-line-strong'
                       }`}
                     >
@@ -253,7 +253,7 @@ export function Step5Upgrade() {
 
           {/* Price summary */}
           {state.upgradePrice !== null && (
-            <div className="p-3 bg-bg-subtle dark:bg-white/5 rounded-xl border border-line animate-fadeSlideIn text-center">
+            <div className="p-4 bg-bg-subtle rounded-[10px] border border-line animate-fadeSlideIn text-center">
               <p className="text-sm text-fg-muted">
                 {state.upgradeModel} {formatStorage(state.upgradeStorage!)} · {getColorName(state.upgradeColor!, lang)}
               </p>

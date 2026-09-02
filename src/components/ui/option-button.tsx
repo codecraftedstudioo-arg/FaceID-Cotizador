@@ -25,9 +25,9 @@ export function OptionButton({
       onClick={onClick}
       disabled={disabled}
       className={`
-        w-full p-4 rounded-xl border-2 text-left transition-all duration-200
+        w-full p-4 min-h-12 rounded-[10px] border text-left transition-all duration-200
         ${selected
-          ? 'border-accent bg-accent/10 ring-2 ring-accent/20'
+          ? 'border-fg bg-fg/[0.04]'
           : 'border-line bg-surface hover:border-line-strong hover:bg-bg-subtle'
         }
         ${disabled ? 'opacity-50 cursor-not-allowed' : 'cursor-pointer'}

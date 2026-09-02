@@ -14,10 +14,6 @@ interface SelectProps {
   disabled?: boolean
 }
 
-/**
- * Custom dropdown select - Kavak style
- * Closed by default, opens on click
- */
 export function Select({
   label,
   placeholder = 'Seleccionar...',
@@ -29,7 +25,6 @@ export function Select({
   const [isOpen, setIsOpen] = useState(false)
   const ref = useRef<HTMLDivElement>(null)
 
-  // Close on click outside
   useEffect(() => {
     function handleClickOutside(event: MouseEvent) {
       if (ref.current && !ref.current.contains(event.target as Node)) {
@@ -44,33 +39,31 @@ export function Select({
 
   return (
     <div ref={ref} className="relative">
-      {/* Label */}
-      {label && <label className="block text-sm text-fg font-medium mb-1.5">{label}</label>}
+      {label && (
+        <label className="block text-sm text-fg font-medium mb-2">{label}</label>
+      )}
 
-      {/* Trigger button */}
       <button
         type="button"
         onClick={() => !disabled && setIsOpen(!isOpen)}
         disabled={disabled}
         className={`
-          w-full px-4 py-3 rounded-xl text-left
+          w-full min-h-12 px-4 py-3 rounded-[10px] text-left text-[15px]
           flex items-center justify-between
-          border transition-all duration-200
+          border bg-surface transition-all duration-200
           ${disabled
-            ? 'bg-bg-subtle dark:bg-gray-800/50 border-line text-fg-subtle cursor-not-allowed'
+            ? 'border-line text-fg-subtle cursor-not-allowed bg-bg-subtle'
             : isOpen
-              ? 'bg-surface dark:bg-gray-800 border-accent text-fg'
-              : 'bg-surface dark:bg-gray-800/80 border-line dark:border-gray-600 text-fg hover:border-line-strong'
+              ? 'border-fg text-fg shadow-sm'
+              : 'border-line text-fg hover:border-line-strong'
           }
         `}
       >
         <span className={selectedOption ? 'text-fg' : 'text-fg-subtle'}>
           {selectedOption?.label || placeholder}
         </span>
-
-        {/* Chevron */}
         <svg
-          className={`w-5 h-5 text-fg-subtle transition-transform duration-200 ${isOpen ? 'rotate-180' : ''}`}
+          className={`w-5 h-5 text-fg-subtle shrink-0 transition-transform duration-200 ${isOpen ? 'rotate-180' : ''}`}
           fill="none"
           stroke="currentColor"
           viewBox="0 0 24 24"
@@ -79,9 +72,8 @@ export function Select({
         </svg>
       </button>
 
-      {/* Dropdown options */}
       {isOpen && (
-        <div className="absolute z-50 w-full mt-2 py-2 bg-surface dark:bg-gray-800 border border-line dark:border-gray-600 rounded-xl shadow-xl max-h-60 overflow-y-auto">
+        <div className="absolute z-50 w-full mt-2 py-1.5 bg-surface border border-line rounded-[10px] shadow-[0_12px_32px_rgba(31,41,55,0.12)] max-h-60 overflow-y-auto">
           {options.map((option) => (
             <button
               key={option.value}
@@ -91,10 +83,10 @@ export function Select({
                 setIsOpen(false)
               }}
               className={`
-                w-full px-4 py-2.5 text-left transition-colors
+                w-full px-4 py-3 text-left text-[15px] transition-colors
                 ${option.value === value
                   ? 'bg-accent/15 text-fg font-medium'
-                  : 'text-fg hover:bg-fg/5 dark:hover:bg-gray-700'
+                  : 'text-fg hover:bg-bg-subtle'
                 }
               `}
             >

@@ -4,7 +4,7 @@
  * Cambiá este archivo para personalizar marca, contacto, SEO y features
  * sin recorrer el resto del código.
  *
- * Los valores de abajo son DEMO / placeholders. No representan un negocio real.
+ * Identidad visual de FACE ID. No cambia fuentes de precio, APIs ni WhatsApp.
  */
 
 export type TenantLanguage = 'es' | 'en'
@@ -88,24 +88,24 @@ export type TenantConfig = {
 
 export const tenant: TenantConfig = {
   brand: {
-    name: 'Cotizador Demo',
-    shortName: 'Demo',
-    logo: '/brand/logo.svg',
-    favicon: '/brand/favicon.svg',
+    name: 'FACE ID',
+    shortName: 'FACE ID',
+    logo: '/brand/logo.jpg',
+    favicon: '/brand/logo.jpg',
     hero: '/brand/hero.svg',
-    website: '',
+    website: 'https://www.tiendafaceid.com/',
     catalogUrl: '',
   },
   contact: {
-    // Número de demostración (no es un WhatsApp real de un cliente).
+    // Número de WhatsApp del cotizador: no se modifica (lógica / mensaje existentes).
     whatsapp: '5491156789012',
     phone: '1156789012',
-    email: 'hola@example.com',
-    address: 'Visitá nuestro local',
-    mapsUrl: '',
+    email: '',
+    address: 'Agüero 1649, CABA',
+    mapsUrl: 'https://maps.app.goo.gl/BmPW3EPStiWuM9SE7',
   },
   social: {
-    instagram: 'marca.demo',
+    instagram: 'faceidshop',
     facebook: '',
     youtube: '',
   },
@@ -119,7 +119,7 @@ export const tenant: TenantConfig = {
     exchangeRateLabel: 'Dólar blue',
   },
   stats: {
-    devicesEvaluated: 500,
+    devicesEvaluated: 2000,
     rating: 4.9,
     yearsExperience: 5,
   },
@@ -131,9 +131,9 @@ export const tenant: TenantConfig = {
     tradeIn: true,
   },
   seo: {
-    title: 'Cotizador',
-    description: 'Cotizá tu equipo en minutos. Precio estimado al instante.',
-    siteUrl: '',
+    title: 'FACE ID | Cotizador',
+    description: 'Cotizá tu iPhone en minutos. Precio estimado al instante.',
+    siteUrl: 'https://www.tiendafaceid.com',
   },
   analytics: {
     enabled: false,

@@ -1,6 +1,7 @@
 import { type ReactNode, useState, useEffect, useRef, useCallback } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { useWizard } from '../hooks/use-wizard'
+import { BrandHeader, BrandMark } from '@/components/ui/header'
 import { ThemeToggle } from '@/components/theme-toggle'
 import {
   tenant,
@@ -9,39 +10,6 @@ import {
   getInstagramUrl,
   getMapsUrl,
 } from '@/config/tenant'
-
-
-
-
-// Typewriter effect component
-function Typewriter({ text, delay = 0, speed = 30 }: { text: string; delay?: number; speed?: number }) {
-  const [displayed, setDisplayed] = useState('')
-  const [started, setStarted] = useState(false)
-
-  useEffect(() => {
-    const timeout = setTimeout(() => setStarted(true), delay)
-    return () => clearTimeout(timeout)
-  }, [delay])
-
-  useEffect(() => {
-    if (!started) return
-    if (displayed.length >= text.length) return
-    const timeout = setTimeout(() => {
-      setDisplayed(text.slice(0, displayed.length + 1))
-    }, speed)
-    return () => clearTimeout(timeout)
-  }, [started, displayed, text, speed])
-
-  return (
-    <span className="relative block">
-      <span className="invisible">{text}</span>
-      <span className="absolute inset-0">
-        {displayed}
-        {started && displayed.length < text.length && <span className="inline-block w-[2px] h-[1em] bg-fg/60 align-middle ml-0.5 animate-pulse" />}
-      </span>
-    </span>
-  )
-}
 
 const reviewsData = tenant.content.reviews
 
@@ -254,7 +222,7 @@ function FAQItem({ question, children }: { question: string; children: ReactNode
   return (
     <button
       onClick={() => setOpen(!open)}
-      className={`w-full text-left rounded-xl transition-all duration-300 px-4 sm:px-5 cursor-pointer focus:outline-none focus-visible:ring-2 focus-visible:ring-[#6B8AED]/50 group ${
+      className={`w-full text-left rounded-xl transition-all duration-300 px-4 sm:px-5 cursor-pointer focus:outline-none focus-visible:ring-2 focus-visible:ring-accent/50 group ${
         open
           ? 'bg-fg/[0.04] border border-fg/[0.08] py-4 sm:py-5'
           : 'bg-fg/[0.02] border border-fg/[0.04] hover:bg-fg/[0.05] hover:border-fg/[0.08] py-4 sm:py-5'
@@ -263,13 +231,13 @@ function FAQItem({ question, children }: { question: string; children: ReactNode
       {/* Question row */}
       <div className="flex items-center justify-between gap-3">
         <span className={`text-sm sm:text-[15px] font-medium transition-colors duration-200 ${
-          open ? 'text-[#4A6BDB] dark:text-[#6B8AED]' : 'text-fg-muted group-hover:text-fg'
+          open ? 'text-accent' : 'text-fg-muted group-hover:text-fg'
         }`}>{question}</span>
         <div className={`w-7 h-7 rounded-full flex items-center justify-center shrink-0 transition-all duration-300 ${
-          open ? 'bg-[#4A6BDB]/15 dark:bg-[#6B8AED]/15 rotate-180' : 'bg-fg/[0.06] group-hover:bg-fg/[0.10]'
+          open ? 'bg-accent/15 dark:bg-accent/15 rotate-180' : 'bg-fg/[0.06] group-hover:bg-fg/[0.10]'
         }`}>
           <svg
-            className={`w-3.5 h-3.5 transition-colors duration-200 ${open ? 'text-[#4A6BDB] dark:text-[#6B8AED]' : 'text-fg-subtle'}`}
+            className={`w-3.5 h-3.5 transition-colors duration-200 ${open ? 'text-accent' : 'text-fg-subtle'}`}
             fill="none"
             viewBox="0 0 24 24"
             stroke="currentColor"
@@ -314,84 +282,59 @@ export function IntroScreen() {
 
   return (
     <div className="min-h-screen bg-bg">
-      {/* Navbar */}
-      <nav className="relative z-10 sticky top-0 bg-bg/95 backdrop-blur-xl border-b border-line">
-        <div className="max-w-7xl mx-auto px-6 md:px-12 lg:px-20 py-4 flex items-center justify-between">
-          {/* Logo - Brand Identity. invert: negro sobre claro / blanco sobre oscuro */}
-          <a href={websiteUrl} target={websiteUrl.startsWith('http') ? '_blank' : undefined} rel={websiteUrl.startsWith('http') ? 'noopener noreferrer' : undefined} className="block overflow-visible">
-            <img
-              src={tenant.brand.logo}
-              alt={tenant.brand.name}
-              className="h-12 md:h-14 lg:h-16 w-auto object-contain"
-            />
-          </a>
-
-          {/* Nav Links - Desktop */}
-          <div className="hidden md:flex items-center gap-8">
-            <button
-               onClick={() => document.getElementById('como-funciona')?.scrollIntoView({ behavior: 'smooth' })}
-               className="text-fg-muted hover:text-fg transition-colors text-sm">
-              ¿Cómo funciona?
-            </button>
-            {catalogUrl && (
-            <a href={catalogUrl} target="_blank" rel="noopener noreferrer"
-               className="text-sm font-medium text-accent border border-accent/40 hover:border-accent hover:bg-accent/10 px-4 py-2 rounded-full transition-all">
-              Precios y modelos
-            </a>
-            )}
-            {instagramUrl && (
-            <a href={instagramUrl} target="_blank" rel="noopener noreferrer"
-               className="text-fg-muted hover:text-fg transition-colors text-sm">
-              Instagram
-            </a>
-            )}
-            {mapsUrl && (
-            <a href={mapsUrl} target="_blank" rel="noopener noreferrer"
-               className="text-fg-muted hover:text-fg transition-colors text-sm">
-              ¿Cómo llegar?
-            </a>
-            )}
-            <button
-               onClick={() => document.getElementById('preguntas-frecuentes')?.scrollIntoView({ behavior: 'smooth' })}
-               className="text-fg-muted hover:text-fg transition-colors text-sm">
-              Preguntas frecuentes
-            </button>
+      <BrandHeader
+        right={
+          <>
+            <div className="hidden md:flex items-center gap-6">
+              <button
+                onClick={() => document.getElementById('como-funciona')?.scrollIntoView({ behavior: 'smooth' })}
+                className="text-fg-muted hover:text-fg transition-colors text-sm"
+              >
+                ¿Cómo funciona?
+              </button>
+              {catalogUrl && (
+                <a href={catalogUrl} target="_blank" rel="noopener noreferrer" className="text-fg-muted hover:text-fg transition-colors text-sm">
+                  Precios y modelos
+                </a>
+              )}
+              {instagramUrl && (
+                <a href={instagramUrl} target="_blank" rel="noopener noreferrer" className="text-fg-muted hover:text-fg transition-colors text-sm">
+                  Instagram
+                </a>
+              )}
+              {mapsUrl && (
+                <a href={mapsUrl} target="_blank" rel="noopener noreferrer" className="text-fg-muted hover:text-fg transition-colors text-sm">
+                  ¿Cómo llegar?
+                </a>
+              )}
+              <button
+                onClick={() => document.getElementById('preguntas-frecuentes')?.scrollIntoView({ behavior: 'smooth' })}
+                className="text-fg-muted hover:text-fg transition-colors text-sm"
+              >
+                Preguntas frecuentes
+              </button>
+            </div>
             <ThemeToggle />
-          </div>
-
-          {/* Right cluster - Mobile (toggle + hamburger) */}
-          <div className="flex items-center gap-2 md:hidden">
-            <ThemeToggle />
+            <button
+              onClick={startCotizar}
+              className="hidden md:inline-flex items-center justify-center px-4 py-2 rounded-[10px] text-sm font-semibold bg-cta text-cta-contrast hover:bg-cta-hover transition-colors"
+            >
+              Cotizar ahora
+            </button>
             <button
               onClick={() => setMenuOpen(!menuOpen)}
-              className="w-10 h-10 rounded-xl bg-bg-subtle border border-line flex flex-col items-center justify-center gap-[5px] hover:bg-fg/5 transition-all cursor-pointer group"
+              className="w-10 h-10 rounded-[10px] border border-line flex flex-col items-center justify-center gap-[5px] hover:bg-fg/5 transition-all cursor-pointer group md:hidden"
               aria-label="Menú"
             >
-              <span className={`block h-[2px] rounded-full bg-fg transition-all duration-300 ${menuOpen ? 'w-5 rotate-45 translate-y-[7px]' : 'w-5 group-hover:w-4'}`} />
+              <span className={`block h-[2px] rounded-full bg-fg transition-all duration-300 ${menuOpen ? 'w-5 rotate-45 translate-y-[7px]' : 'w-5'}`} />
               <span className={`block h-[2px] rounded-full bg-fg transition-all duration-300 ${menuOpen ? 'w-0 opacity-0' : 'w-3.5'}`} />
-              <span className={`block h-[2px] rounded-full bg-fg transition-all duration-300 ${menuOpen ? 'w-5 -rotate-45 -translate-y-[7px]' : 'w-5 group-hover:w-4'}`} />
+              <span className={`block h-[2px] rounded-full bg-fg transition-all duration-300 ${menuOpen ? 'w-5 -rotate-45 -translate-y-[7px]' : 'w-5'}`} />
             </button>
-          </div>
-
-          {/* CTA button - Desktop */}
-          {tenant.brand.website ? (
-          <a
-            href={websiteUrl}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="hidden md:block px-5 py-2.5 rounded-full text-sm font-semibold text-accent-contrast bg-accent hover:bg-accent-hover transition-all"
-          >
-            Tienda online
-          </a>
-          ) : (
-          <button
-            onClick={startCotizar}
-            className="hidden md:block px-5 py-2.5 rounded-full text-sm font-semibold text-accent-contrast bg-accent hover:bg-accent-hover transition-all"
-          >
-            Cotizar ahora
-          </button>
-          )}
-        </div>
+          </>
+        }
+      />
+      <div>
+        {/* Mobile menu dropdown */}
 
         {/* Mobile menu dropdown — market style */}
         {menuOpen && (
@@ -401,8 +344,8 @@ export function IntroScreen() {
                 onClick={() => { document.getElementById('como-funciona')?.scrollIntoView({ behavior: 'smooth' }); setMenuOpen(false) }}
                 className="flex items-center gap-3 text-fg-muted hover:text-fg hover:bg-fg/5 text-sm text-left py-3 px-3 rounded-xl transition-all cursor-pointer"
               >
-                <span className="w-8 h-8 rounded-lg bg-[#4A6BDB]/10 flex items-center justify-center shrink-0">
-                  <svg className="w-4 h-4 text-[#4A6BDB] dark:text-[#6B8AED]" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
+                <span className="w-8 h-8 rounded-lg bg-accent/10 flex items-center justify-center shrink-0">
+                  <svg className="w-4 h-4 text-accent" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
                     <path strokeLinecap="round" strokeLinejoin="round" d="M9.879 7.519c1.171-1.025 3.071-1.025 4.242 0 1.172 1.025 1.172 2.687 0 3.712-.203.179-.43.326-.67.442-.745.361-1.45.999-1.45 1.827v.75M21 12a9 9 0 11-18 0 9 9 0 0118 0zm-9 5.25h.008v.008H12v-.008z" />
                   </svg>
                 </span>
@@ -412,8 +355,8 @@ export function IntroScreen() {
                 onClick={() => { document.getElementById('preguntas-frecuentes')?.scrollIntoView({ behavior: 'smooth' }); setMenuOpen(false) }}
                 className="flex items-center gap-3 text-fg-muted hover:text-fg hover:bg-fg/5 text-sm text-left py-3 px-3 rounded-xl transition-all cursor-pointer"
               >
-                <span className="w-8 h-8 rounded-lg bg-[#4A6BDB]/10 flex items-center justify-center shrink-0">
-                  <svg className="w-4 h-4 text-[#4A6BDB] dark:text-[#6B8AED]" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
+                <span className="w-8 h-8 rounded-lg bg-accent/10 flex items-center justify-center shrink-0">
+                  <svg className="w-4 h-4 text-accent" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
                     <path strokeLinecap="round" strokeLinejoin="round" d="M8.625 12a.375.375 0 11-.75 0 .375.375 0 01.75 0zm0 0H8.25m4.125 0a.375.375 0 11-.75 0 .375.375 0 01.75 0zm0 0H12m4.125 0a.375.375 0 11-.75 0 .375.375 0 01.75 0zm0 0h-.375M21 12c0 4.556-4.03 8.25-9 8.25a9.764 9.764 0 01-2.555-.337A5.972 5.972 0 015.41 20.97a5.969 5.969 0 01-.474-.065 4.48 4.48 0 00.978-2.025c.09-.457-.133-.901-.467-1.226C3.93 16.178 3 14.189 3 12c0-4.556 4.03-8.25 9-8.25s9 3.694 9 8.25z" />
                   </svg>
                 </span>
@@ -425,8 +368,8 @@ export function IntroScreen() {
               {catalogUrl && (
               <a href={catalogUrl} target="_blank" rel="noopener noreferrer"
                  className="flex items-center gap-3 text-fg-muted hover:text-fg hover:bg-fg/5 text-sm py-3 px-3 rounded-xl transition-all">
-                <span className="w-8 h-8 rounded-lg bg-[#4A6BDB]/10 flex items-center justify-center shrink-0">
-                  <svg className="w-4 h-4 text-[#4A6BDB] dark:text-[#6B8AED]" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
+                <span className="w-8 h-8 rounded-lg bg-accent/10 flex items-center justify-center shrink-0">
+                  <svg className="w-4 h-4 text-accent" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
                     <path strokeLinecap="round" strokeLinejoin="round" d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4zM3 6h18M16 10a4 4 0 0 1-8 0" />
                   </svg>
                 </span>
@@ -436,8 +379,8 @@ export function IntroScreen() {
               {tenant.brand.website && (
               <a href={websiteUrl} target="_blank" rel="noopener noreferrer"
                  className="flex items-center gap-3 text-fg-muted hover:text-fg hover:bg-fg/5 text-sm py-3 px-3 rounded-xl transition-all">
-                <span className="w-8 h-8 rounded-lg bg-[#4A6BDB]/10 flex items-center justify-center shrink-0">
-                  <svg className="w-4 h-4 text-[#4A6BDB] dark:text-[#6B8AED]" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
+                <span className="w-8 h-8 rounded-lg bg-accent/10 flex items-center justify-center shrink-0">
+                  <svg className="w-4 h-4 text-accent" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
                     <path strokeLinecap="round" strokeLinejoin="round" d="M13.5 21v-7.5a.75.75 0 01.75-.75h3a.75.75 0 01.75.75V21m-4.5 0H2.36m11.14 0H18m0 0h3.64m-1.39 0V9.349m-16.5 11.65V9.35m0 0a3.001 3.001 0 003.75-.615A2.993 2.993 0 009.75 9.75c.896 0 1.7-.393 2.25-1.016a2.993 2.993 0 002.25 1.016c.896 0 1.7-.393 2.25-1.016A3.001 3.001 0 0021 9.349m-18 0a2.998 2.998 0 00.615-1.524L4.26 4.265A1.5 1.5 0 015.745 3h12.51a1.5 1.5 0 011.485 1.265l.645 3.56a2.998 2.998 0 00.615 1.524" />
                   </svg>
                 </span>
@@ -467,134 +410,69 @@ export function IntroScreen() {
                 ¿Cómo llegar?
               </a>
               )}
-            </div>
-          </div>
-        )}
-      </nav>
-
-      {/* Hero Section */}
-      <section className="relative bg-bg overflow-hidden">
-        {/* Hero — Mobile (banner style: full-bleed photo, content anchored bottom) */}
-        <div className="md:hidden">
-          <div className="relative">
-            <img
-              src={tenant.brand.hero}
-              alt={tenant.brand.name}
-              className="w-full aspect-[3/4] object-cover object-center"
-            />
-            {/* Velo oscuro abajo: el texto va ENCIMA de la foto → blanco sobre scrim
-               oscuro en ambos temas (es lo que mejor se lee sobre una imagen). */}
-            <div className="absolute inset-0 bg-[linear-gradient(to_top,#000_0%,rgba(0,0,0,0.82)_16%,rgba(0,0,0,0.30)_40%,transparent_62%)]" />
-            {/* Content anchored bottom */}
-            <div className="absolute inset-x-0 bottom-0 px-6 pb-9">
-              <span className="inline-flex items-center gap-2 text-[11px] text-blue-400 dark:text-green-400 font-semibold tracking-[0.2em] uppercase mb-3 animate-fadeSlideIn">
-                <span className="w-1.5 h-1.5 rounded-full bg-blue-400 dark:bg-green-400 shadow-[0_0_8px_rgba(96,165,250,0.7)] dark:shadow-[0_0_8px_rgba(74,222,128,0.6)]" />
-                Plan Canje
-              </span>
-              <h1 className="text-[2rem] leading-[1.1] font-bold text-white mb-3 animate-fadeSlideIn" style={{ animationDelay: '0.1s' }}>
-                Cambiá tu iPhone<br />
-                al mejor precio
-              </h1>
-              <p className="text-white/75 text-[15px] leading-relaxed mb-6 max-w-sm animate-fadeSlideIn" style={{ animationDelay: '0.2s' }}>
-                Cotizá en 1 minuto, elegí tu nuevo iPhone y pagás solo la diferencia.
-              </p>
               <button
-                onClick={startCotizar}
-                className="btn-shimmer inline-flex items-center gap-2 px-6 py-3.5 rounded-full text-[15px] font-semibold text-accent-contrast bg-accent hover:bg-accent-hover active:scale-95 transition-all duration-300 shadow-xl shadow-accent/30 animate-fadeSlideIn"
-                style={{ animationDelay: '0.3s' }}
+                onClick={() => { setMenuOpen(false); startCotizar() }}
+                className="mt-2 mx-3 min-h-12 rounded-[10px] bg-cta text-cta-contrast font-semibold text-sm"
               >
                 Cotizar ahora
-                <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
-                  <path strokeLinecap="round" strokeLinejoin="round" d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3" />
-                </svg>
               </button>
             </div>
           </div>
-          {/* Stats + location */}
-          <div className="px-6 pt-9 pb-10">
-            <div className="grid grid-cols-2 gap-6">
-              {heroStats.map((stat, i) => (
-                <div key={i}>
-                  <div className="text-2xl font-bold text-fg">{stat.value}</div>
-                  <div className="text-fg-subtle text-sm">{stat.label}</div>
-                </div>
-              ))}
-            </div>
-            {mapsUrl ? (
+        )}
+      </div>
+
+      {/* Hero Section */}
+      <section className="relative bg-bg overflow-hidden">
+        <div className="mx-auto max-w-3xl px-5 sm:px-6 pt-10 pb-12 sm:pt-16 sm:pb-20 text-center">
+          <span className="inline-flex items-center gap-1.5 text-[11px] sm:text-xs text-accent-contrast font-semibold tracking-widest uppercase mb-5 px-3 py-1.5 rounded-full border border-accent/40 bg-accent animate-fadeSlideIn">
+            Plan Canje
+          </span>
+          <h1 className="font-display text-[2rem] sm:text-5xl lg:text-6xl font-bold text-fg mb-4 leading-[1.12] tracking-tight animate-fadeSlideIn">
+            Cambiá tu iPhone
+            <span className="block">al mejor precio</span>
+          </h1>
+          <p className="text-[15px] sm:text-lg text-fg-muted mb-8 leading-relaxed max-w-xl mx-auto animate-fadeSlideIn" style={{ animationDelay: '0.08s' }}>
+            Cotizá en 1 minuto, elegí tu nuevo iPhone y pagás solo la diferencia.
+          </p>
+          <div className="mb-10 animate-fadeSlideIn" style={{ animationDelay: '0.12s' }}>
+            <button
+              onClick={startCotizar}
+              className="inline-flex items-center justify-center gap-2 px-7 py-3.5 min-h-12 rounded-[10px] text-[15px] font-semibold bg-cta text-cta-contrast hover:bg-cta-hover transition-colors"
+            >
+              Cotizar ahora
+              <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
+                <path strokeLinecap="round" strokeLinejoin="round" d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3" />
+              </svg>
+            </button>
+          </div>
+          <div className="grid grid-cols-2 sm:grid-cols-4 gap-6 text-left sm:text-center animate-fadeSlideIn" style={{ animationDelay: '0.16s' }}>
+            {heroStats.map((stat, i) => (
+              <div key={i}>
+                <div className="font-display text-2xl font-bold text-fg">{stat.value}</div>
+                <div className="text-fg-subtle text-sm mt-0.5">{stat.label}</div>
+              </div>
+            ))}
+          </div>
+          {mapsUrl ? (
             <a
               href={mapsUrl}
               target="_blank"
               rel="noopener noreferrer"
-              className="mt-7 flex items-center gap-2 text-fg-muted hover:text-fg text-sm transition-colors"
+              className="mt-8 inline-flex items-center gap-2 text-fg-muted hover:text-fg text-sm transition-colors"
             >
-              <svg className="w-4 h-4 text-red-500" fill="currentColor" viewBox="0 0 24 24">
+              <svg className="w-4 h-4 text-accent" fill="currentColor" viewBox="0 0 24 24">
                 <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z" />
               </svg>
               <span>{tenant.contact.address || 'Visitá nuestro local'}</span>
             </a>
-            ) : (
-            <p className="mt-7 flex items-center gap-2 text-fg-muted text-sm">
-              <svg className="w-4 h-4 text-red-500" fill="currentColor" viewBox="0 0 24 24">
+          ) : (
+            <p className="mt-8 inline-flex items-center gap-2 text-fg-muted text-sm">
+              <svg className="w-4 h-4 text-accent" fill="currentColor" viewBox="0 0 24 24">
                 <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z" />
               </svg>
               <span>{tenant.contact.address || 'Visitá nuestro local'}</span>
             </p>
-            )}
-          </div>
-        </div>
-
-        {/* Hero — Desktop (sin cambios respecto al aprobado) */}
-        <div className="hidden md:block max-w-7xl mx-auto">
-          <div className="flex flex-row items-center min-h-[75vh]">
-            {/* Left - Text */}
-            <div className="relative z-10 px-12 lg:px-20 py-20 w-1/2">
-              <span className="inline-flex items-center gap-1.5 text-xs text-accent font-semibold tracking-widest uppercase mb-5 px-3 py-1.5 rounded-full border border-accent/30 bg-accent/10 animate-fadeSlideIn">
-                Plan Canje
-              </span>
-              <h1 className="text-5xl lg:text-7xl font-bold text-fg mb-6 leading-tight animate-fadeSlideIn">
-                Cambiá tu
-                <span className="block">iPhone</span>
-                <span className="block">al mejor</span>
-                <span className="block">precio</span>
-              </h1>
-
-              <p
-                className="text-xl text-fg-muted mb-8 leading-relaxed animate-fadeSlideIn"
-                style={{ animationDelay: '0.1s' }}
-              >
-                <Typewriter text="Cotizá en 1 minuto, elegí tu nuevo iPhone y pagás solo la diferencia." delay={800} speed={30} />
-              </p>
-
-              <div className="mb-10 animate-fadeSlideIn" style={{ animationDelay: '0.2s' }}>
-                <button
-                  onClick={startCotizar}
-                  className="btn-shimmer px-10 py-5 rounded-full text-lg font-bold text-accent-contrast bg-accent
-                             hover:bg-accent-hover hover:scale-105 transition-all duration-300 shadow-2xl shadow-accent/30 hover:shadow-accent/50"
-                >
-                  Cotizar ahora
-                </button>
-              </div>
-
-              <div className="grid grid-cols-2 gap-6 animate-fadeSlideIn" style={{ animationDelay: '0.3s' }}>
-                {heroStats.map((stat, i) => (
-                  <div key={i}>
-                    <div className="text-2xl md:text-3xl font-bold text-fg">{stat.value}</div>
-                    <div className="text-fg-subtle text-sm">{stat.label}</div>
-                  </div>
-                ))}
-              </div>
-            </div>
-
-            {/* Right - Image. El gradiente funde la foto hacia el fondo (claro/oscuro) */}
-            <div className="relative w-1/2 min-h-[75vh]">
-              <img
-                src={tenant.brand.hero}
-                alt={tenant.brand.name}
-                className="w-full h-full object-cover object-center absolute inset-0"
-              />
-              <div className="absolute inset-0 bg-[linear-gradient(to_right,var(--bg)_0%,transparent_32%)] dark:bg-[linear-gradient(to_right,#000_0%,rgba(0,0,0,0.2)_50%,transparent_100%)]" />
-            </div>
-          </div>
+          )}
         </div>
       </section>
 
@@ -618,8 +496,8 @@ export function IntroScreen() {
                 className="text-center group"
                 style={{ transitionDelay: `${i * 100}ms` }}
               >
-                <div className="w-14 h-14 rounded-full bg-surface dark:bg-white/5 border-2 border-[#263A99]/60 flex items-center justify-center mx-auto mb-4 group-hover:border-[#263A99] group-hover:scale-110 transition-all duration-300">
-                  <div className="text-[#4A6BDB]">{item.icon}</div>
+                <div className="w-14 h-14 rounded-[10px] bg-surface border border-line flex items-center justify-center mx-auto mb-4 group-hover:border-accent transition-all duration-300">
+                  <div className="text-accent">{item.icon}</div>
                 </div>
                 <h3 className="text-fg font-semibold mb-1">{item.title}</h3>
                 <p className="text-fg-subtle text-sm">{item.desc}</p>
@@ -642,8 +520,8 @@ export function IntroScreen() {
               { step: '3', title: 'Te pagamos en el momento', desc: 'Efectivo o transferencia, como prefieras' },
             ].map((item, i) => (
               <div key={i} className="text-center group">
-                <div className="w-14 h-14 rounded-full bg-surface dark:bg-white/5 border-2 border-[#263A99]/60 flex items-center justify-center mx-auto mb-4 group-hover:border-[#263A99] group-hover:scale-110 transition-all duration-300">
-                  <span className="text-2xl font-bold text-[#4A6BDB]">{item.step}</span>
+                <div className="w-10 h-10 rounded-[10px] bg-accent text-accent-contrast font-bold flex items-center justify-center mx-auto mb-4 text-lg">
+                  {item.step}
                 </div>
                 <h3 className="text-fg font-semibold text-lg mb-2">{item.title}</h3>
                 <p className="text-fg-muted text-sm">{item.desc}</p>
@@ -662,10 +540,10 @@ export function IntroScreen() {
           {/* Video */}
           {tenant.social.youtube && (
           <div className="mt-8 flex flex-col items-center">
-            <p className="text-sm uppercase tracking-widest text-[#4A6BDB] font-semibold mb-2">Miralo en acción</p>
+            <p className="text-sm uppercase tracking-widest text-accent font-semibold mb-2">Miralo en acción</p>
             <h3 className="text-xl md:text-2xl font-bold text-fg mb-8">Así de fácil es vender tu iPhone</h3>
             <div className="relative group">
-              <div className="absolute -inset-3 bg-[#4A6BDB]/15 rounded-3xl blur-2xl group-hover:bg-[#4A6BDB]/25 transition-all duration-500" />
+              <div className="absolute -inset-3 bg-accent/15 rounded-3xl blur-2xl group-hover:bg-accent/25 transition-all duration-500" />
               <VideoPlayer />
             </div>
           </div>
@@ -718,10 +596,10 @@ export function IntroScreen() {
         <div className="max-w-3xl mx-auto relative z-10">
           {/* Header */}
           <div className="text-center mb-12 sm:mb-14">
-            <span className="inline-flex items-center gap-1.5 text-[11px] sm:text-xs text-[#4A6BDB]/90 dark:text-[#6B8AED]/80 font-semibold tracking-widest uppercase mb-5 animate-fadeSlideIn">
-              <span className="w-5 h-px bg-[#4A6BDB]/40 dark:bg-[#6B8AED]/40" />
-              iPhone Market
-              <span className="w-5 h-px bg-[#4A6BDB]/40 dark:bg-[#6B8AED]/40" />
+            <span className="inline-flex items-center gap-1.5 text-[11px] sm:text-xs text-accent/90 dark:text-accent/80 font-semibold tracking-widest uppercase mb-5 animate-fadeSlideIn">
+              <span className="w-5 h-px bg-accent/40 dark:bg-accent/40" />
+              FACE ID
+              <span className="w-5 h-px bg-accent/40 dark:bg-accent/40" />
             </span>
             <h2 className="text-3xl sm:text-4xl lg:text-[2.75rem] font-bold text-fg leading-[1.15] tracking-tight mb-4 animate-fadeSlideIn" style={{ animationDelay: '0.1s' }}>
               Encontrá tu próximo<br /> iPhone
@@ -741,7 +619,7 @@ export function IntroScreen() {
                     <div className="w-28 h-28 sm:w-32 sm:h-32 rounded-2xl bg-bg-subtle dark:bg-[#0D1220] border border-line dark:border-[#1A2230] flex items-center justify-center sm:mb-1">
                       <img src="/iphones/iphone-15-blue.png" alt="" className="w-22 h-22 sm:w-24 sm:h-24 object-contain" />
                     </div>
-                    <span className="absolute -top-1.5 -left-1.5 sm:-top-2 sm:-left-2 w-5 h-5 sm:w-6 sm:h-6 rounded-full bg-[#4A6BDB] text-white text-[10px] sm:text-xs font-bold flex items-center justify-center shadow-[0_0_12px_rgba(74,107,219,0.5)]">
+                    <span className="absolute -top-1.5 -left-1.5 sm:-top-2 sm:-left-2 w-5 h-5 sm:w-6 sm:h-6 rounded-full bg-accent text-white text-[10px] sm:text-xs font-bold flex items-center justify-center shadow-[0_0_12px_rgba(74,107,219,0.5)]">
                       1
                     </span>
                   </div>
@@ -752,7 +630,7 @@ export function IntroScreen() {
                 </div>
               </div>
               <div className="hidden sm:flex absolute right-0 top-1/2 -translate-y-1/2 translate-x-1/2 z-10 w-8 h-8 rounded-full bg-surface dark:bg-[#0A0E16] border border-line dark:border-[#1A2230] items-center justify-center">
-                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" className="text-[#4A6BDB]/60 dark:text-[#6B8AED]/60">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" className="text-accent/60 dark:text-accent/60">
                   <path strokeLinecap="round" strokeLinejoin="round" d="M9 5l7 7-7 7" />
                 </svg>
               </div>
@@ -766,7 +644,7 @@ export function IntroScreen() {
                     <div className="w-28 h-28 sm:w-32 sm:h-32 rounded-2xl bg-bg-subtle dark:bg-[#0D1220] border border-line dark:border-[#1A2230] flex items-center justify-center sm:mb-1">
                       <img src="/iphones/iphone-17-pro-orange.png" alt="" className="w-22 h-22 sm:w-24 sm:h-24 object-contain" />
                     </div>
-                    <span className="absolute -top-1.5 -left-1.5 sm:-top-2 sm:-left-2 w-5 h-5 sm:w-6 sm:h-6 rounded-full bg-[#4A6BDB] text-white text-[10px] sm:text-xs font-bold flex items-center justify-center shadow-[0_0_12px_rgba(74,107,219,0.5)]">
+                    <span className="absolute -top-1.5 -left-1.5 sm:-top-2 sm:-left-2 w-5 h-5 sm:w-6 sm:h-6 rounded-full bg-accent text-white text-[10px] sm:text-xs font-bold flex items-center justify-center shadow-[0_0_12px_rgba(74,107,219,0.5)]">
                       2
                     </span>
                   </div>
@@ -777,7 +655,7 @@ export function IntroScreen() {
                 </div>
               </div>
               <div className="hidden sm:flex absolute right-0 top-1/2 -translate-y-1/2 translate-x-1/2 z-10 w-8 h-8 rounded-full bg-surface dark:bg-[#0A0E16] border border-line dark:border-[#1A2230] items-center justify-center">
-                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" className="text-[#4A6BDB]/60 dark:text-[#6B8AED]/60">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" className="text-accent/60 dark:text-accent/60">
                   <path strokeLinecap="round" strokeLinejoin="round" d="M9 5l7 7-7 7" />
                 </svg>
               </div>
@@ -785,15 +663,15 @@ export function IntroScreen() {
 
             {/* Step 3 */}
             <div className="relative group sm:pl-4 animate-fadeSlideIn" style={{ animationDelay: '0.5s' }}>
-              <div className="rounded-2xl sm:rounded-l-none border border-[#4A6BDB]/25 bg-[#4A6BDB]/[0.06] dark:bg-gradient-to-b dark:from-[#0C1024] dark:to-[#0A0E18] p-6 h-full ring-1 ring-[#4A6BDB]/[0.08] shadow-[inset_0_1px_0_rgba(107,138,237,0.06)]">
+              <div className="rounded-2xl sm:rounded-l-none border border-accent/25 bg-accent/[0.06] dark:bg-gradient-to-b dark:from-[#0C1024] dark:to-[#0A0E18] p-6 h-full ring-1 ring-accent/[0.08] shadow-[inset_0_1px_0_rgba(107,138,237,0.06)]">
                 <div className="flex items-start gap-4 sm:flex-col sm:items-center sm:text-center">
                   <div className="relative shrink-0">
-                    <div className="w-28 h-28 sm:w-32 sm:h-32 rounded-2xl bg-[#4A6BDB]/10 border border-[#4A6BDB]/20 flex items-center justify-center sm:mb-1">
-                      <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" className="text-[#4A6BDB] dark:text-[#6B8AED] sm:w-12 sm:h-12">
+                    <div className="w-28 h-28 sm:w-32 sm:h-32 rounded-2xl bg-accent/10 border border-accent/20 flex items-center justify-center sm:mb-1">
+                      <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" className="text-accent sm:w-12 sm:h-12">
                         <path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6" />
                       </svg>
                     </div>
-                    <span className="absolute -top-1.5 -left-1.5 sm:-top-2 sm:-left-2 w-5 h-5 sm:w-6 sm:h-6 rounded-full bg-[#4A6BDB] text-white text-[10px] sm:text-xs font-bold flex items-center justify-center shadow-[0_0_12px_rgba(74,107,219,0.5)]">
+                    <span className="absolute -top-1.5 -left-1.5 sm:-top-2 sm:-left-2 w-5 h-5 sm:w-6 sm:h-6 rounded-full bg-accent text-white text-[10px] sm:text-xs font-bold flex items-center justify-center shadow-[0_0_12px_rgba(74,107,219,0.5)]">
                       3
                     </span>
                   </div>
@@ -810,21 +688,21 @@ export function IntroScreen() {
           <div className="text-center">
             <div className="flex items-center justify-center gap-4 sm:gap-6 mb-6 text-fg-subtle">
               <span className="flex items-center gap-1.5 text-xs">
-                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" className="text-[#4A6BDB]/60 dark:text-[#6B8AED]/60">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" className="text-accent/60 dark:text-accent/60">
                   <path strokeLinecap="round" strokeLinejoin="round" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
                 </svg>
                 En tiempo real
               </span>
               <span className="w-1 h-1 rounded-full bg-fg/15" />
               <span className="flex items-center gap-1.5 text-xs">
-                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" className="text-[#4A6BDB]/60 dark:text-[#6B8AED]/60">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" className="text-accent/60 dark:text-accent/60">
                   <path strokeLinecap="round" strokeLinejoin="round" d="M9 12.75L11.25 15 15 9.75m-3-7.036A11.959 11.959 0 013.598 6 11.99 11.99 0 003 9.749c0 5.592 3.824 10.29 9 11.623 5.176-1.332 9-6.03 9-11.622 0-1.31-.21-2.571-.598-3.751h-.152c-3.196 0-6.1-1.248-8.25-3.285z" />
                 </svg>
                 Mejor precio
               </span>
               <span className="w-1 h-1 rounded-full bg-fg/15" />
               <span className="flex items-center gap-1.5 text-xs">
-                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" className="text-[#4A6BDB]/60 dark:text-[#6B8AED]/60">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" className="text-accent/60 dark:text-accent/60">
                   <path strokeLinecap="round" strokeLinejoin="round" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
                 </svg>
                 +{tenant.stats.devicesEvaluated} Clientes
@@ -880,7 +758,7 @@ export function IntroScreen() {
                   { action: 'Desactivá', target: '"Buscar mi iPhone"', detail: 'e ingresá tu contraseña' },
                 ].map((step, i) => (
                   <div key={i} className="flex items-start gap-3">
-                    <span className="w-6 h-6 rounded-full bg-[#4A6BDB]/15 dark:bg-[#6B8AED]/15 text-[#4A6BDB] dark:text-[#6B8AED] text-[11px] font-bold flex items-center justify-center flex-shrink-0 mt-px">{i + 1}</span>
+                    <span className="w-6 h-6 rounded-full bg-accent/15 dark:bg-accent/15 text-accent text-[11px] font-bold flex items-center justify-center flex-shrink-0 mt-px">{i + 1}</span>
                     <p className="text-[13px] sm:text-sm text-fg-muted leading-snug pt-0.5">
                       {step.action} <strong className="text-fg">{step.target}</strong>{step.detail ? ` ${step.detail}` : ''}
                     </p>
@@ -916,11 +794,7 @@ export function IntroScreen() {
           <div className="flex flex-col md:flex-row items-center justify-between gap-6">
             {/* Logo in footer. invert: negro sobre claro / blanco sobre oscuro */}
             <a href={websiteUrl} target={websiteUrl.startsWith('http') ? '_blank' : undefined} rel={websiteUrl.startsWith('http') ? 'noopener noreferrer' : undefined}>
-              <img
-                src={tenant.brand.logo}
-                alt={tenant.brand.name}
-                className="h-12 md:h-14 w-auto object-contain"
-              />
+              <BrandMark />
             </a>
 
             <p className="text-fg-subtle text-sm">© {new Date().getFullYear()} {tenant.brand.name}. Todos los derechos reservados.</p>

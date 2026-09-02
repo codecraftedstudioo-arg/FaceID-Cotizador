@@ -8,9 +8,7 @@ interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
 }
 
 /**
- * Reusable Button component with variants
- * Brand colors: cyan (#9de8ef), black, white
- * Includes hover scale animation
+ * Botones FACE ID: primario negro, secundario blanco, WhatsApp amarillo de marca.
  */
 export function Button({
   children,
@@ -22,25 +20,24 @@ export function Button({
   ...props
 }: ButtonProps) {
   const baseStyles = `
-    font-medium rounded-xl
-    transition-all duration-300 ease-out
-    focus:outline-none focus:ring-2 focus:ring-offset-2
-    transform hover:scale-[1.02] active:scale-[0.98]
+    inline-flex items-center justify-center gap-2
+    font-semibold rounded-[10px]
+    transition-all duration-200 ease-out
+    focus:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2
+    active:scale-[0.98]
   `
 
   const variants = {
-    // CTA principal: usa el acento del tema (azul Apple en claro / verde en oscuro).
-    // Disabled = gris legible (no acento pálido con texto blanco ilegible).
-    primary: 'bg-accent text-accent-contrast hover:bg-accent-hover focus:ring-accent shadow-lg disabled:bg-fg/15 disabled:text-fg-muted disabled:shadow-none',
-    secondary: 'bg-fg/10 text-fg hover:bg-fg/15 focus:ring-fg/40 backdrop-blur-sm disabled:opacity-50',
-    outline: 'border-2 border-line-strong text-fg hover:border-fg hover:bg-fg/5 focus:ring-accent backdrop-blur-sm disabled:opacity-50',
-    whatsapp: 'bg-green-500 text-white hover:bg-green-400 focus:ring-green-500 shadow-lg hover:shadow-green-500/25 disabled:bg-green-300',
+    primary: 'bg-cta text-cta-contrast hover:bg-cta-hover shadow-[0_1px_2px_rgba(31,41,55,0.12)] disabled:bg-fg/15 disabled:text-fg-muted disabled:shadow-none',
+    secondary: 'bg-surface text-fg border border-line-strong hover:bg-bg-subtle hover:border-fg/30 disabled:opacity-50',
+    outline: 'bg-transparent border border-line-strong text-fg hover:bg-fg/5 disabled:opacity-50',
+    whatsapp: 'bg-accent text-accent-contrast hover:bg-accent-hover shadow-[0_1px_2px_rgba(202,154,6,0.35)] disabled:opacity-50',
   }
 
   const sizes = {
-    sm: 'px-4 py-2 text-sm',
-    md: 'px-5 py-2.5 text-base',
-    lg: 'px-8 py-4 text-lg font-semibold',
+    sm: 'px-4 py-2 text-sm min-h-10',
+    md: 'px-5 py-3 text-[15px] min-h-12',
+    lg: 'px-8 py-4 text-base min-h-14',
   }
 
   return (
@@ -50,7 +47,7 @@ export function Button({
         ${variants[variant]}
         ${sizes[size]}
         ${fullWidth ? 'w-full' : ''}
-        ${disabled ? 'cursor-not-allowed transform-none' : 'cursor-pointer'}
+        ${disabled ? 'cursor-not-allowed pointer-events-none' : 'cursor-pointer'}
         ${className}
       `}
       disabled={disabled}

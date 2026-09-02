@@ -21,8 +21,8 @@ export const STORAGE_KEY = 'cotizador-theme'
 export const DEFAULT_THEME: Theme = 'light'
 
 const THEME_COLOR: Record<Theme, string> = {
-  light: '#ffffff',
-  dark: '#000000',
+  light: '#f6f6f4',
+  dark: '#111827',
 }
 
 export function getTheme(): Theme {

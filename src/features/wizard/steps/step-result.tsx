@@ -143,7 +143,7 @@ export function StepResult() {
   }
 
   const deductionsBlock = priceResult.deductionBreakdown.length > 0 ? (
-    <div className="mb-4 p-4 bg-bg-subtle dark:bg-white/5 rounded-xl text-left border border-line">
+    <div className="mb-4 p-4 bg-bg-subtle rounded-[10px] text-left border border-line">
       <p className="text-sm font-medium text-fg mb-3">{t('adjustments')}</p>
       <ul className="space-y-2">
         {priceResult.deductionBreakdown.map((d, i) => (
@@ -158,38 +158,40 @@ export function StepResult() {
 
   return (
     <Card className="text-center">
-      <Confetti />
 
       {upgradeInfo ? (
         <>
           {/* Upgrade flow */}
           <div className="mb-4 space-y-3 text-center">
             {/* Your iPhone value */}
-            <div className="p-4 min-h-[5rem] flex flex-col justify-center bg-green-500/10 rounded-xl border border-green-500/20">
-              <p className="text-green-700/70 dark:text-green-300/60 text-xs">
-                {lang === 'es' ? `Tu ${state.model} ${formatStorage(state.storage ?? '')} vale` : `Your ${state.model} ${formatStorage(state.storage ?? '')} is worth`}
+            <div className="p-4 min-h-[5rem] flex flex-col justify-center bg-bg-subtle rounded-[10px] border border-line">
+              <p className="text-fg-subtle text-[11px] font-medium uppercase tracking-wider">
+                {lang === 'es' ? `Valor de tu ${state.model} ${formatStorage(state.storage ?? '')}` : `Your ${state.model} ${formatStorage(state.storage ?? '')} is worth`}
               </p>
-              <p className="text-lg font-bold text-green-600 dark:text-green-400 mt-0.5">{formatPrice(offerResult.finalPrice)}</p>
+              <p className="text-lg font-bold text-fg mt-1 tabular-nums">{formatPrice(offerResult.finalPrice)}</p>
             </div>
 
             {/* New iPhone price */}
-            <div className="p-4 min-h-[5rem] flex flex-col justify-center bg-blue-500/10 rounded-xl border border-blue-500/20">
-              <p className="text-blue-700/70 dark:text-blue-300/60 text-xs">{upgradeInfo.model} {formatStorage(upgradeInfo.storage)}</p>
-              <p className="text-lg font-bold text-blue-600 dark:text-blue-300 mt-0.5">{formatPrice(upgradeInfo.price)}</p>
+            <div className="p-4 min-h-[5rem] flex flex-col justify-center bg-surface rounded-[10px] border border-line">
+              <p className="text-fg-subtle text-[11px] font-medium uppercase tracking-wider">{upgradeInfo.model} {formatStorage(upgradeInfo.storage)}</p>
+              <p className="text-lg font-bold text-fg mt-1 tabular-nums">{formatPrice(upgradeInfo.price)}</p>
             </div>
 
             {/* Difference */}
-            <div className="p-4 min-h-[5rem] flex flex-col justify-center bg-fg/[0.06] dark:bg-gradient-to-br dark:from-white/10 dark:to-white/5 rounded-xl border border-line">
-              <p className="text-fg-muted text-xs">
+            <div className="p-5 min-h-[6rem] flex flex-col justify-center bg-cta rounded-[10px] text-cta-contrast">
+              <p className="text-cta-contrast/70 text-[11px] font-medium uppercase tracking-wider">
+                Precio final
+              </p>
+              <p className="text-cta-contrast/80 text-xs mt-1">
                 {upgradeCovers
                   ? (lang === 'es' ? 'Te queda a favor' : 'In your favor')
                   : (lang === 'es' ? 'Diferencia a pagar' : 'Difference to pay')}
               </p>
-              <p className="text-2xl font-black text-fg mt-1 animate-countUp">
+              <p className="text-3xl font-bold font-display mt-1 animate-countUp tabular-nums">
                 {formatPrice(Math.abs(diff))}
               </p>
               {rate !== null && Math.abs(diff) > 0 && (
-                <p className="text-lg font-bold text-fg-muted mt-1">
+                <p className="text-base font-semibold text-cta-contrast/75 mt-1 tabular-nums">
                   {(Math.abs(diff) * rate).toLocaleString('es-AR')} ARS
                 </p>
               )}
@@ -223,12 +225,12 @@ export function StepResult() {
                 className="w-full text-left group"
                 aria-expanded={altsExpanded}
               >
-                <div className={`relative flex items-center justify-between gap-3 p-3.5 rounded-xl border bg-green-500/[0.08] hover:bg-green-500/[0.15] transition-all ${
-                  altsExpanded ? 'border-green-500/50' : 'border-green-500/40 shadow-[0_0_20px_-4px_rgba(34,197,94,0.3)] animate-pulse-subtle'
+                <div className={`relative flex items-center justify-between gap-3 p-3.5 rounded-[10px] border bg-accent/10 hover:bg-accent/15 transition-all ${
+                  altsExpanded ? 'border-accent/60' : 'border-accent/40'
                 }`}>
                   <div className="flex items-start gap-2.5 flex-1">
-                    <div className="w-8 h-8 rounded-lg bg-green-500/20 flex items-center justify-center flex-shrink-0 mt-0.5">
-                      <svg className="w-4 h-4 text-green-600 dark:text-green-400" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth={2}>
+                    <div className="w-8 h-8 rounded-lg bg-accent/20 flex items-center justify-center flex-shrink-0 mt-0.5">
+                      <svg className="w-4 h-4 text-fg" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth={2}>
                         <path strokeLinecap="round" strokeLinejoin="round" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6" />
                       </svg>
                     </div>
@@ -244,7 +246,7 @@ export function StepResult() {
                     </div>
                   </div>
                   <svg
-                    className={`w-5 h-5 text-green-600 dark:text-green-400 transition-transform flex-shrink-0 ${altsExpanded ? 'rotate-180' : ''}`}
+                    className={`w-5 h-5 text-fg transition-transform flex-shrink-0 ${altsExpanded ? 'rotate-180' : ''}`}
                     fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth={2}
                   >
                     <path strokeLinecap="round" strokeLinejoin="round" d="M19 9l-7 7-7-7" />
@@ -265,7 +267,7 @@ export function StepResult() {
                     <button
                       key={`${alt.model}-${alt.storage}-${alt.color}`}
                       onClick={() => handleSelectAlternative(alt)}
-                      className="w-full p-3.5 sm:p-4 rounded-xl border border-line bg-surface dark:bg-white/5 hover:bg-green-500/10 hover:border-green-500/40 transition-all text-left group"
+                      className="w-full p-3.5 sm:p-4 rounded-[10px] border border-line bg-surface hover:bg-bg-subtle hover:border-line-strong transition-all text-left group"
                     >
                       <div className="flex items-center gap-3">
                         <div className="w-14 h-14 sm:w-16 sm:h-16 rounded-lg bg-bg-subtle dark:bg-white/5 border border-line flex items-center justify-center flex-shrink-0 overflow-hidden">
@@ -296,7 +298,7 @@ export function StepResult() {
                           <p className="text-[10px] sm:text-xs text-fg-muted leading-tight">
                             {diffLabel}
                           </p>
-                          <p className="text-base sm:text-lg font-bold text-green-600 dark:text-green-400 group-hover:text-green-700 dark:group-hover:text-green-300 leading-tight mt-0.5">
+                          <p className="text-base sm:text-lg font-bold text-fg leading-tight mt-0.5 tabular-nums">
                             {formatPrice(Math.abs(alt.newDiff))}
                           </p>
                         </div>
@@ -312,19 +314,22 @@ export function StepResult() {
       ) : (
         <>
           {/* Sell-only flow: sticky header */}
-          <div className="sticky top-0 z-10 bg-bg -mx-3 px-3 -mt-2 pt-6 pb-4 mb-4 border-b border-line shadow-[0_4px_12px_rgba(0,0,0,0.1)] dark:shadow-[0_4px_12px_rgba(0,0,0,0.8)] text-center">
-            <p className="text-fg-muted text-sm mb-1">
-              {lang === 'es' ? `Tu ${state.model} de ${formatStorage(state.storage ?? '')} vale` : `Your ${state.model} ${formatStorage(state.storage ?? '')} is worth`}
+          <div className="mb-4 p-5 rounded-[10px] bg-cta text-cta-contrast text-center animate-fadeSlideIn">
+            <p className="text-cta-contrast/70 text-[11px] font-medium uppercase tracking-wider mb-1">
+              Precio final
             </p>
-            <p className="text-3xl sm:text-4xl font-black text-fg tracking-tight animate-countUp">
+            <p className="text-[15px] text-cta-contrast/80 mb-1">
+              {lang === 'es' ? `Tu ${state.model} de ${formatStorage(state.storage ?? '')}` : `Your ${state.model} ${formatStorage(state.storage ?? '')}`}
+            </p>
+            <p className="text-3xl sm:text-4xl font-bold font-display tracking-tight animate-countUp tabular-nums">
               {formatPrice(offerResult.finalPrice)}
             </p>
             {rate !== null && (
-              <p className="text-xl sm:text-2xl font-bold text-fg-muted mt-1">
+              <p className="text-lg font-semibold text-cta-contrast/75 mt-1 tabular-nums">
                 {(offerResult.finalPrice * rate).toLocaleString('es-AR')} ARS
               </p>
             )}
-            <p className="text-fg-subtle text-xs mt-1">{t('resultDisclaimer')}</p>
+            <p className="text-cta-contrast/55 text-xs mt-2">{t('resultDisclaimer')}</p>
           </div>
         </>
       )}
@@ -353,7 +358,7 @@ export function StepResult() {
           setTimeout(() => window.open(whatsappLink, '_blank', 'noopener,noreferrer'), 300)
         }}
       >
-        <button className="w-full px-4 py-3 bg-green-500 hover:bg-green-600 text-white font-semibold text-sm rounded-xl transition-all flex items-center justify-center gap-2">
+        <button className="w-full min-h-12 px-4 py-3 bg-accent hover:bg-accent-hover text-accent-contrast font-semibold text-sm rounded-[10px] transition-colors flex items-center justify-center gap-2">
           <WhatsAppIcon />
           {upgradeInfo
             ? (lang === 'es' ? '¡Quiero canjear!' : 'I want to trade in!')
@@ -373,7 +378,7 @@ export function StepResult() {
             href={buildInquiryLink(state, offerResult, { name: contactName || undefined, phone: contactPhone || undefined }, lang, rate ?? 0, upgradeInfo)}
             target="_blank"
             rel="noopener noreferrer"
-            className="mt-3 block w-full text-center px-4 py-3 text-sm font-semibold text-fg-muted hover:text-fg border border-line hover:border-line-strong rounded-xl transition-all"
+            className="mt-3 block w-full text-center min-h-12 px-4 py-3 text-sm font-semibold text-fg border border-line-strong hover:bg-bg-subtle rounded-[10px] transition-colors"
           >
             {lang === 'es' ? '¿Tenés dudas? Consultanos' : 'Questions? Ask us'}
           </a>
@@ -404,36 +409,3 @@ function WhatsAppIcon() {
   )
 }
 
-const Confetti = (() => {
-  // Colores tipo piñata/fiesta
-  const colors = ['#FF6B6B', '#4ECDC4', '#FFE66D', '#95E1D3', '#F38181', '#AA96DA', '#FCBAD3', '#A8D8EA', '#FF9F43', '#6BCB77']
-  const pieces = Array.from({ length: 60 }, (_, i) => ({
-    id: i,
-    left: `${Math.random() * 100}%`,
-    delay: `${Math.random() * 0.5}s`,
-    color: colors[Math.floor(Math.random() * colors.length)],
-    size: Math.random() * 10 + 5,
-    isRound: Math.random() > 0.5,
-  }))
-
-  return function ConfettiComponent() {
-    return (
-      <div className="fixed inset-0 pointer-events-none z-50 overflow-hidden animate-confetti-container">
-        {pieces.map((piece) => (
-          <div
-            key={piece.id}
-            className="confetti-piece"
-            style={{
-              left: piece.left,
-              animationDelay: piece.delay,
-              width: piece.size,
-              height: piece.size,
-              backgroundColor: piece.color,
-              borderRadius: piece.isRound ? '50%' : '0',
-            }}
-          />
-        ))}
-      </div>
-    )
-  }
-})()

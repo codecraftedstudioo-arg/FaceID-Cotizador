@@ -13,7 +13,7 @@ export function Checkbox({ label, checked, onChange, description }: CheckboxProp
   return (
     <label className={`
       flex items-start gap-3 p-3 rounded-xl cursor-pointer transition-all
-      border ${checked ? 'border-accent bg-accent/10' : 'border-line hover:border-line-strong'}
+      border ${checked ? 'border-fg bg-fg/[0.04]' : 'border-line hover:border-line-strong'}
     `}>
       <input
         type="checkbox"

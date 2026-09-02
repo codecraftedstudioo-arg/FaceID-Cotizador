@@ -11,10 +11,6 @@ interface SelectionCardProps {
   size?: 'sm' | 'md' | 'lg'
 }
 
-/**
- * Visual selection card for wizard options
- * Replaces dropdowns with clickable cards
- */
 export function SelectionCard({
   selected,
   onClick,
@@ -36,12 +32,12 @@ export function SelectionCard({
       onClick={onClick}
       disabled={disabled}
       className={`
-        w-full text-left rounded-xl border-2 transition-all duration-200
+        w-full text-left rounded-[10px] border transition-all duration-200
         ${sizeClasses[size]}
         ${disabled ? 'opacity-50 cursor-not-allowed' : 'cursor-pointer'}
         ${selected
-          ? 'border-accent bg-accent/10 shadow-lg shadow-accent/20'
-          : 'border-line bg-surface dark:bg-white/5 hover:border-line-strong hover:bg-bg-subtle dark:hover:bg-white/10'
+          ? 'border-fg bg-fg/[0.04] shadow-[var(--shadow-sm)]'
+          : 'border-line bg-surface hover:border-line-strong hover:bg-bg-subtle'
         }
       `}
     >
@@ -49,7 +45,7 @@ export function SelectionCard({
         {icon && (
           <div className={`
             flex-shrink-0 w-10 h-10 rounded-lg flex items-center justify-center
-            ${selected ? 'bg-accent/20 text-accent' : 'bg-fg/5 text-fg-subtle'}
+            ${selected ? 'bg-accent/20 text-fg' : 'bg-bg-subtle text-fg-subtle'}
           `}>
             {icon}
           </div>
@@ -81,9 +77,6 @@ interface StoragePillProps {
   disabled?: boolean
 }
 
-/**
- * Pill button for storage selection
- */
 export function StoragePill({ value, selected, onClick, disabled }: StoragePillProps) {
   const label = formatStorage(value)
 
@@ -93,11 +86,11 @@ export function StoragePill({ value, selected, onClick, disabled }: StoragePillP
       onClick={onClick}
       disabled={disabled}
       className={`
-        px-4 py-2.5 rounded-full font-medium text-sm transition-all duration-200 border
+        min-h-11 px-4 py-2.5 rounded-[10px] font-medium text-sm transition-all duration-200 border
         ${disabled ? 'opacity-50 cursor-not-allowed' : 'cursor-pointer'}
         ${selected
-          ? 'border-transparent bg-accent text-accent-contrast shadow-lg shadow-accent/30'
-          : 'border-line dark:border-transparent bg-fg/5 text-fg-muted hover:bg-fg/10 hover:border-line-strong dark:hover:border-transparent'
+          ? 'border-transparent bg-cta text-cta-contrast'
+          : 'border-line bg-surface text-fg-muted hover:border-line-strong hover:text-fg'
         }
       `}
     >
@@ -114,19 +107,16 @@ interface ConditionCardProps {
   variant?: 'good' | 'warning' | 'bad'
 }
 
-/**
- * Condition card with color variants
- */
 export function ConditionCard({ selected, onClick, icon, label, variant = 'good' }: ConditionCardProps) {
   const variantStyles = {
-    good: selected ? 'border-green-500 bg-green-500/10' : 'border-line bg-surface dark:bg-white/5 hover:border-green-500/50',
-    warning: selected ? 'border-yellow-500 bg-yellow-500/10' : 'border-line bg-surface dark:bg-white/5 hover:border-yellow-500/50',
-    bad: selected ? 'border-red-500 bg-red-500/10' : 'border-line bg-surface dark:bg-white/5 hover:border-red-500/50',
+    good: selected ? 'border-fg bg-fg/[0.04]' : 'border-line bg-surface hover:border-line-strong',
+    warning: selected ? 'border-accent bg-accent/10' : 'border-line bg-surface hover:border-accent/50',
+    bad: selected ? 'border-red-400 bg-red-50 dark:bg-red-500/10' : 'border-line bg-surface hover:border-red-300',
   }
 
   const iconColor = {
-    good: selected ? 'text-green-600 dark:text-green-400' : 'text-fg-subtle',
-    warning: selected ? 'text-yellow-600 dark:text-yellow-400' : 'text-fg-subtle',
+    good: selected ? 'text-fg' : 'text-fg-subtle',
+    warning: selected ? 'text-accent-contrast' : 'text-fg-subtle',
     bad: selected ? 'text-red-600 dark:text-red-400' : 'text-fg-subtle',
   }
 
@@ -135,7 +125,7 @@ export function ConditionCard({ selected, onClick, icon, label, variant = 'good'
       type="button"
       onClick={onClick}
       className={`
-        flex flex-col items-center gap-2 p-4 rounded-xl border-2 transition-all duration-200
+        flex flex-col items-center gap-2 p-3.5 min-h-[5.5rem] rounded-[10px] border transition-all duration-200
         ${variantStyles[variant]}
       `}
     >
@@ -158,21 +148,17 @@ interface ToggleCardProps {
   neutral?: boolean
 }
 
-/**
- * Toggle card for yes/no options
- */
 export function ToggleCard({ selected, onClick, icon, label, isPositive = true, neutral = false }: ToggleCardProps) {
-  // Neutral uses gray for both options
   const selectedColor = neutral
-    ? 'border-fg/40 bg-fg/10'
+    ? 'border-fg bg-fg/[0.04]'
     : isPositive
-      ? 'border-green-500 bg-green-500/10'
-      : 'border-red-500 bg-red-500/10'
+      ? 'border-fg bg-fg/[0.04]'
+      : 'border-red-400 bg-red-50 dark:bg-red-500/10'
 
   const iconSelected = neutral
     ? 'text-fg'
     : isPositive
-      ? 'text-green-600 dark:text-green-400'
+      ? 'text-fg'
       : 'text-red-600 dark:text-red-400'
 
   return (
@@ -180,8 +166,8 @@ export function ToggleCard({ selected, onClick, icon, label, isPositive = true, 
       type="button"
       onClick={onClick}
       className={`
-        flex-1 flex flex-col items-center gap-3 p-5 rounded-xl border-2 transition-all duration-200
-        ${selected ? selectedColor : 'border-line bg-surface dark:bg-white/5 hover:border-line-strong'}
+        flex-1 flex flex-col items-center gap-3 p-4 min-h-[6.5rem] rounded-[10px] border transition-all duration-200
+        ${selected ? selectedColor : 'border-line bg-surface hover:border-line-strong'}
       `}
     >
       <div className={`w-10 h-10 ${selected ? iconSelected : 'text-fg-subtle'}`}>

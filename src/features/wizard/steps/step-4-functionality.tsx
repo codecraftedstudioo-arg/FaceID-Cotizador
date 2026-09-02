@@ -54,7 +54,7 @@ function FunctionalityItem({ icon, label, issueLabel, hasIssue, onToggle }: Func
       type="button"
       onClick={() => onToggle(!hasIssue)}
       className={`
-        w-full flex items-center gap-3 p-3 rounded-xl border-2 transition-all cursor-pointer
+        w-full flex items-center gap-3 p-3.5 min-h-14 rounded-[10px] border transition-all cursor-pointer
         ${hasIssue
           ? 'border-red-500/50 bg-red-500/10'
           : 'border-line bg-surface dark:bg-white/5 hover:border-line-strong hover:bg-bg-subtle dark:hover:bg-white/10'
