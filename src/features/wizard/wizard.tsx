@@ -17,6 +17,7 @@ import {
   StepResult,
 } from './steps'
 import { IPhoneFrame } from './components/iphone-frame'
+import { SideInfo } from './components/side-info'
 import { tenant, getWhatsAppUrl, getMapsUrl } from '@/config/tenant'
 
 const TOTAL_STEPS = 6
@@ -131,40 +132,63 @@ export function WizardPage() {
       </div>
 
       <main className="flex-1 flex items-center justify-center px-3 sm:px-4 py-4 sm:py-6">
-        <IPhoneFrame contentRef={contentRef} showRate={currentStep === 7}>
-          {showProgress && (
-            <div className="mb-2">
-              <ProgressBar currentStep={displayStep} totalSteps={displayTotal} />
-            </div>
-          )}
+        <div className="w-full max-w-6xl mx-auto grid grid-cols-1 lg:grid-cols-[minmax(0,1fr)_auto_minmax(0,1fr)] items-center gap-4">
+          <SideInfo position="left" />
 
-          <div>
-            {renderStep()}
+          <div className="justify-self-center">
+            <IPhoneFrame contentRef={contentRef} showRate={currentStep === 7}>
+              {showProgress && (
+                <div className="mb-2">
+                  <ProgressBar currentStep={displayStep} totalSteps={displayTotal} />
+                </div>
+              )}
+
+              <div>
+                {renderStep()}
+              </div>
+
+              {showProgress && (
+                <div className="mt-4 pt-3 border-t border-line flex items-center justify-between px-1">
+                  {currentStep > 1 ? (
+                    <button
+                      type="button"
+                      onClick={prevStep}
+                      className="flex items-center gap-1 text-sm transition-colors text-fg-muted hover:text-fg min-h-10"
+                    >
+                      <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
+                      </svg>
+                      Atrás
+                    </button>
+                  ) : (
+                    <div className="w-14" />
+                  )}
+                  <span className="text-fg-subtle text-xs tabular-nums">
+                    {displayStep} de {displayTotal}
+                  </span>
+                  <div className="w-14" />
+                </div>
+              )}
+            </IPhoneFrame>
+
+            <div className="lg:hidden mt-4 flex justify-center gap-4">
+              <div className="flex items-center gap-1.5 text-fg-muted text-xs">
+                <svg className="w-4 h-4 text-green-500" fill="currentColor" viewBox="0 0 20 20">
+                  <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
+                </svg>
+                Pago inmediato
+              </div>
+              <div className="flex items-center gap-1.5 text-fg-muted text-xs">
+                <svg className="w-4 h-4 text-green-500" fill="currentColor" viewBox="0 0 20 20">
+                  <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
+                </svg>
+                Mejor precio
+              </div>
+            </div>
           </div>
 
-          {showProgress && (
-            <div className="mt-4 pt-3 border-t border-line flex items-center justify-between px-1">
-              {currentStep > 1 ? (
-                <button
-                  type="button"
-                  onClick={prevStep}
-                  className="flex items-center gap-1 text-sm transition-colors text-fg-muted hover:text-fg min-h-10"
-                >
-                  <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
-                  </svg>
-                  Atrás
-                </button>
-              ) : (
-                <div className="w-14" />
-              )}
-              <span className="text-fg-subtle text-xs tabular-nums">
-                {displayStep} de {displayTotal}
-              </span>
-              <div className="w-14" />
-            </div>
-          )}
-        </IPhoneFrame>
+          <SideInfo position="right" />
+        </div>
       </main>
 
       <footer className="py-4 text-center space-y-1 px-4">

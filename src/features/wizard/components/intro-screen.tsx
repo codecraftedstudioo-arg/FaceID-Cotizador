@@ -317,7 +317,7 @@ export function IntroScreen() {
             <ThemeToggle />
             <button
               onClick={startCotizar}
-              className="hidden md:inline-flex items-center justify-center px-4 py-2 rounded-[10px] text-sm font-semibold bg-cta text-cta-contrast hover:bg-cta-hover transition-colors"
+              className="hidden md:inline-flex items-center justify-center px-4 py-2 rounded-[10px] text-sm font-semibold bg-accent text-accent-contrast hover:bg-accent-hover transition-colors"
             >
               Cotizar ahora
             </button>
@@ -412,7 +412,7 @@ export function IntroScreen() {
               )}
               <button
                 onClick={() => { setMenuOpen(false); startCotizar() }}
-                className="mt-2 mx-3 min-h-12 rounded-[10px] bg-cta text-cta-contrast font-semibold text-sm"
+                className="mt-2 mx-3 min-h-12 rounded-[10px] bg-accent text-accent-contrast font-semibold text-sm hover:bg-accent-hover transition-colors"
               >
                 Cotizar ahora
               </button>
@@ -450,7 +450,7 @@ export function IntroScreen() {
           <div className="mb-10 animate-fadeSlideIn" style={{ animationDelay: '0.12s' }}>
             <button
               onClick={startCotizar}
-              className="inline-flex items-center justify-center gap-2 px-7 py-3.5 min-h-12 rounded-[10px] text-[15px] font-semibold bg-white text-[#1f2937] hover:bg-white/90 transition-colors"
+              className="inline-flex items-center justify-center gap-2 px-7 py-3.5 min-h-12 rounded-[10px] text-[15px] font-semibold bg-accent text-accent-contrast hover:bg-accent-hover transition-colors"
             >
               Cotizar ahora
               <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
