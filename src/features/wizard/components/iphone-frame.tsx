@@ -62,11 +62,11 @@ export function IPhoneFrame({
             </div>
 
             <div className="flex-shrink-0 px-3 py-2 flex items-center gap-2 border-b border-line">
-              <div className="w-9 h-9 rounded-[10px] overflow-hidden shadow-lg flex-shrink-0 bg-white">
+              <div className="w-9 h-9 rounded-[10px] overflow-hidden shadow-lg flex-shrink-0">
                 <img
                   src={tenant.brand.logo}
                   alt={tenant.brand.name}
-                  className="w-full h-full object-contain p-0.5"
+                  className="w-full h-full object-cover"
                 />
               </div>
               <div className="flex-1 min-w-0">

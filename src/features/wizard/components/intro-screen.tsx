@@ -450,7 +450,7 @@ export function IntroScreen() {
           <div className="mb-10 animate-fadeSlideIn" style={{ animationDelay: '0.12s' }}>
             <button
               onClick={startCotizar}
-              className="inline-flex items-center justify-center gap-2 px-7 py-3.5 min-h-12 rounded-[10px] text-[15px] font-semibold bg-accent text-accent-contrast hover:bg-accent-hover transition-colors"
+              className="inline-flex items-center justify-center gap-2 px-7 py-3.5 min-h-12 rounded-[10px] text-[15px] font-semibold bg-accent text-accent-contrast hover:bg-accent-hover transition-colors animate-cta-twinkle"
             >
               Cotizar ahora
               <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>

@@ -261,6 +261,25 @@ html, body {
   animation: starTwinkle 3s ease-in-out infinite;
 }
 
+@keyframes ctaTwinkle {
+  0%, 70% {
+    box-shadow: none;
+    transform: scale(1);
+  }
+  80% {
+    box-shadow: 0 0 8px rgba(234, 179, 8, 0.55), 0 0 22px rgba(234, 179, 8, 0.35);
+    transform: scale(1.06);
+  }
+  100% {
+    box-shadow: none;
+    transform: scale(1);
+  }
+}
+
+.animate-cta-twinkle {
+  animation: ctaTwinkle 3s ease-in-out infinite;
+}
+
 @keyframes scroll {
   0% {
     transform: translateX(0);
