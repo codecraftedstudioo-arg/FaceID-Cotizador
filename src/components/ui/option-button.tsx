@@ -25,15 +25,15 @@ export function OptionButton({
       onClick={onClick}
       disabled={disabled}
       className={`
-        w-full p-4 min-h-12 rounded-[10px] border text-left transition-all duration-200
+        group w-full p-4 min-h-12 rounded-[10px] border text-left transition-all duration-200
         ${selected
-          ? 'border-fg bg-fg/[0.04]'
-          : 'border-line bg-surface hover:border-line-strong hover:bg-bg-subtle'
+          ? 'border-accent bg-accent/10'
+          : 'border-line bg-surface hover:border-accent hover:bg-accent/10'
         }
         ${disabled ? 'opacity-50 cursor-not-allowed' : 'cursor-pointer'}
       `}
     >
-      <div className="font-medium text-fg">{children}</div>
+      <div className={`font-medium transition-colors ${selected ? 'text-accent-hover' : 'text-fg group-hover:text-accent-hover'}`}>{children}</div>
       {description && (
         <div className="mt-1 text-sm text-fg-subtle">{description}</div>
       )}

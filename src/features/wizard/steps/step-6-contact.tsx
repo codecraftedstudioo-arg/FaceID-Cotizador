@@ -130,7 +130,7 @@ export function Step6Contact() {
             onChange={handleNameChange}
             placeholder={lang === 'es' ? 'Tu nombre' : 'Your name'}
             className={`w-full min-h-12 px-4 py-3 rounded-[10px] bg-surface border text-fg placeholder:text-fg-subtle focus:outline-none transition-colors ${
-              nameTouched && nameTooShort ? 'border-red-500/60' : 'border-line focus:border-fg'
+              nameTouched && nameTooShort ? 'border-red-500/60' : 'border-line hover:border-accent hover:bg-accent/10 focus:border-accent'
             }`}
             autoComplete="name"
           />
@@ -157,7 +157,7 @@ export function Step6Contact() {
             onChange={handlePhoneChange}
             placeholder={lang === 'es' ? 'Ej: 11 1234 5678' : 'e.g. 11 1234 5678'}
             className={`w-full min-h-12 px-4 py-3 rounded-[10px] bg-surface border text-fg placeholder:text-fg-subtle focus:outline-none transition-colors ${
-              (phoneTouched || showInvalidPhone) && !phoneValid ? 'border-red-500/60' : 'border-line focus:border-fg'
+              (phoneTouched || showInvalidPhone) && !phoneValid ? 'border-red-500/60' : 'border-line hover:border-accent hover:bg-accent/10 focus:border-accent'
             }`}
             autoComplete="tel"
             inputMode="numeric"

@@ -54,17 +54,17 @@ function FunctionalityItem({ icon, label, issueLabel, hasIssue, onToggle }: Func
       type="button"
       onClick={() => onToggle(!hasIssue)}
       className={`
-        w-full flex items-center gap-3 p-3.5 min-h-14 rounded-[10px] border transition-all cursor-pointer
+        group w-full flex items-center gap-3 p-3.5 min-h-14 rounded-[10px] border transition-all cursor-pointer
         ${hasIssue
           ? 'border-red-500/50 bg-red-500/10'
-          : 'border-line bg-surface dark:bg-white/5 hover:border-line-strong hover:bg-bg-subtle dark:hover:bg-white/10'
+          : 'border-line bg-surface dark:bg-white/5 hover:border-accent hover:bg-accent/10'
         }
       `}
     >
-      <div className={`w-8 h-8 ${hasIssue ? 'text-red-500 dark:text-red-400' : 'text-fg-subtle'}`}>
+      <div className={`w-8 h-8 transition-colors ${hasIssue ? 'text-red-500 dark:text-red-400' : 'text-fg-subtle group-hover:text-accent-hover'}`}>
         {icon}
       </div>
-      <span className={`flex-1 text-sm text-left ${hasIssue ? 'text-fg' : 'text-fg-muted'}`}>
+      <span className={`flex-1 text-sm text-left transition-colors ${hasIssue ? 'text-fg' : 'text-fg-muted group-hover:text-accent-hover'}`}>
         {hasIssue ? issueLabel : label}
       </span>
       <div className="flex items-center gap-1">

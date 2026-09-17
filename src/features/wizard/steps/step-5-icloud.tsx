@@ -139,7 +139,7 @@ export function Step5ICloud() {
         {/* Help trigger */}
         <button
           onClick={() => setShowHelp(true)}
-          className="w-full p-3.5 bg-white/[0.04] border border-white/[0.08] rounded-xl mb-6 flex items-center gap-3 hover:bg-white/[0.06] transition-colors cursor-pointer text-left"
+          className="w-full p-3.5 bg-white/[0.04] border border-white/[0.08] rounded-xl mb-6 flex items-center gap-3 hover:border-accent hover:bg-accent/10 transition-colors cursor-pointer text-left group"
         >
           <div className="w-9 h-9 rounded-full bg-amber-500/12 flex items-center justify-center flex-shrink-0">
             <svg viewBox="0 0 20 20" fill="currentColor" className="w-[18px] h-[18px] text-amber-400">

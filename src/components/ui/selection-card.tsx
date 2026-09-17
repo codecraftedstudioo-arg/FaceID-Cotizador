@@ -32,26 +32,26 @@ export function SelectionCard({
       onClick={onClick}
       disabled={disabled}
       className={`
-        w-full text-left rounded-[10px] border transition-all duration-200
+        group w-full text-left rounded-[10px] border transition-all duration-200
         ${sizeClasses[size]}
         ${disabled ? 'opacity-50 cursor-not-allowed' : 'cursor-pointer'}
         ${selected
-          ? 'border-fg bg-fg/[0.04] shadow-[var(--shadow-sm)]'
-          : 'border-line bg-surface hover:border-line-strong hover:bg-bg-subtle'
+          ? 'border-accent bg-accent/10'
+          : 'border-line bg-surface hover:border-accent hover:bg-accent/10'
         }
       `}
     >
       <div className="flex items-center gap-3">
         {icon && (
           <div className={`
-            flex-shrink-0 w-10 h-10 rounded-lg flex items-center justify-center
-            ${selected ? 'bg-accent/20 text-fg' : 'bg-bg-subtle text-fg-subtle'}
+            flex-shrink-0 w-10 h-10 rounded-lg flex items-center justify-center transition-colors
+            ${selected ? 'bg-accent/20 text-accent-hover' : 'bg-bg-subtle text-fg-subtle group-hover:bg-accent/20 group-hover:text-accent-hover'}
           `}>
             {icon}
           </div>
         )}
         <div className="flex-1 min-w-0">
-          <p className={`font-medium truncate ${selected ? 'text-fg' : 'text-fg-muted'}`}>
+          <p className={`font-medium truncate transition-colors ${selected ? 'text-accent-hover' : 'text-fg-muted group-hover:text-accent-hover'}`}>
             {label}
           </p>
           {description && (
@@ -89,8 +89,8 @@ export function StoragePill({ value, selected, onClick, disabled }: StoragePillP
         min-h-11 px-4 py-2.5 rounded-[10px] font-medium text-sm transition-all duration-200 border
         ${disabled ? 'opacity-50 cursor-not-allowed' : 'cursor-pointer'}
         ${selected
-          ? 'border-transparent bg-cta text-cta-contrast'
-          : 'border-line bg-surface text-fg-muted hover:border-line-strong hover:text-fg'
+          ? 'border-accent bg-accent/10 text-accent-hover'
+          : 'border-line bg-surface text-fg-muted hover:border-accent hover:bg-accent/10 hover:text-accent-hover'
         }
       `}
     >
@@ -107,32 +107,22 @@ interface ConditionCardProps {
   variant?: 'good' | 'warning' | 'bad'
 }
 
-export function ConditionCard({ selected, onClick, icon, label, variant = 'good' }: ConditionCardProps) {
-  const variantStyles = {
-    good: selected ? 'border-fg bg-fg/[0.04]' : 'border-line bg-surface hover:border-line-strong',
-    warning: selected ? 'border-accent bg-accent/10' : 'border-line bg-surface hover:border-accent/50',
-    bad: selected ? 'border-red-400 bg-red-50 dark:bg-red-500/10' : 'border-line bg-surface hover:border-red-300',
-  }
-
-  const iconColor = {
-    good: selected ? 'text-fg' : 'text-fg-subtle',
-    warning: selected ? 'text-accent-contrast' : 'text-fg-subtle',
-    bad: selected ? 'text-red-600 dark:text-red-400' : 'text-fg-subtle',
-  }
-
+export function ConditionCard({ selected, onClick, icon, label }: ConditionCardProps) {
   return (
     <button
       type="button"
       onClick={onClick}
       className={`
-        flex flex-col items-center gap-2 p-3.5 min-h-[5.5rem] rounded-[10px] border transition-all duration-200
-        ${variantStyles[variant]}
+        group flex flex-col items-center gap-2 p-3.5 min-h-[5.5rem] rounded-[10px] border transition-all duration-200
+        ${selected
+          ? 'border-accent bg-accent/10'
+          : 'border-line bg-surface hover:border-accent hover:bg-accent/10'}
       `}
     >
-      <div className={`w-8 h-8 ${iconColor[variant]}`}>
+      <div className={`w-8 h-8 transition-colors ${selected ? 'text-accent-hover' : 'text-fg-subtle group-hover:text-accent-hover'}`}>
         {icon}
       </div>
-      <span className={`text-sm font-medium text-center ${selected ? 'text-fg' : 'text-fg-muted'}`}>
+      <span className={`text-sm font-medium text-center transition-colors ${selected ? 'text-accent-hover' : 'text-fg-muted group-hover:text-accent-hover'}`}>
         {label}
       </span>
     </button>
@@ -148,32 +138,22 @@ interface ToggleCardProps {
   neutral?: boolean
 }
 
-export function ToggleCard({ selected, onClick, icon, label, isPositive = true, neutral = false }: ToggleCardProps) {
-  const selectedColor = neutral
-    ? 'border-fg bg-fg/[0.04]'
-    : isPositive
-      ? 'border-fg bg-fg/[0.04]'
-      : 'border-red-400 bg-red-50 dark:bg-red-500/10'
-
-  const iconSelected = neutral
-    ? 'text-fg'
-    : isPositive
-      ? 'text-fg'
-      : 'text-red-600 dark:text-red-400'
-
+export function ToggleCard({ selected, onClick, icon, label }: ToggleCardProps) {
   return (
     <button
       type="button"
       onClick={onClick}
       className={`
-        flex-1 flex flex-col items-center gap-3 p-4 min-h-[6.5rem] rounded-[10px] border transition-all duration-200
-        ${selected ? selectedColor : 'border-line bg-surface hover:border-line-strong'}
+        group flex-1 flex flex-col items-center gap-3 p-4 min-h-[6.5rem] rounded-[10px] border transition-all duration-200
+        ${selected
+          ? 'border-accent bg-accent/10'
+          : 'border-line bg-surface hover:border-accent hover:bg-accent/10'}
       `}
     >
-      <div className={`w-10 h-10 ${selected ? iconSelected : 'text-fg-subtle'}`}>
+      <div className={`w-10 h-10 transition-colors ${selected ? 'text-accent-hover' : 'text-fg-subtle group-hover:text-accent-hover'}`}>
         {icon}
       </div>
-      <span className={`text-sm sm:text-base font-medium text-center leading-tight ${selected ? 'text-fg' : 'text-fg-muted'}`}>
+      <span className={`text-sm sm:text-base font-medium text-center leading-tight transition-colors ${selected ? 'text-accent-hover' : 'text-fg-muted group-hover:text-accent-hover'}`}>
         {label}
       </span>
     </button>

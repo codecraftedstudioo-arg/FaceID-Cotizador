@@ -74,11 +74,11 @@ export function Step5Upgrade() {
           <button
             type="button"
             onClick={handleWantsUpgrade}
-            className="relative w-full p-4 min-h-20 rounded-[10px] text-left group transition-all bg-cta hover:bg-cta-hover"
+            className="relative w-full p-4 min-h-20 rounded-[10px] text-left group transition-all border border-accent bg-accent/10 hover:bg-accent/15"
           >
             <div className="flex items-center gap-3">
-              <div className="w-10 h-10 rounded-lg bg-accent flex items-center justify-center flex-shrink-0">
-                <svg className="w-5 h-5 text-accent-contrast" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" viewBox="0 0 24 24">
+              <div className="w-10 h-10 rounded-lg bg-accent/20 flex items-center justify-center flex-shrink-0">
+                <svg className="w-5 h-5 text-accent-hover" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" viewBox="0 0 24 24">
                   <path d="M21 12a9 9 0 0 0-15-6.7L3 8" />
                   <path d="M3 3v5h5" />
                   <path d="M3 12a9 9 0 0 0 15 6.7l3-2.7" />
@@ -86,10 +86,10 @@ export function Step5Upgrade() {
                 </svg>
               </div>
               <div className="flex-1 min-w-0">
-                <p className="font-semibold text-cta-contrast">
+                <p className="font-semibold text-accent-hover">
                   {lang === 'es' ? 'Plan Canje' : 'Trade-in Plan'}
                 </p>
-                <p className="text-xs text-cta-contrast/70 mt-0.5">
+                <p className="text-xs text-fg-subtle mt-0.5">
                   {lang === 'es' ? 'Usá tu iPhone como parte de pago' : 'Use your iPhone as part payment'}
                 </p>
               </div>
@@ -97,20 +97,20 @@ export function Step5Upgrade() {
           </button>
           )}
 
-          {/* Solo vender — secundario (outline) */}
+          {/* Solo vender — secundario (outline), hover amarillo de marca */}
           <button
             type="button"
             onClick={handleJustSell}
-            className="w-full p-4 min-h-20 rounded-[10px] border border-line bg-surface hover:border-line-strong hover:bg-bg-subtle transition-all text-left group"
+            className="w-full p-4 min-h-20 rounded-[10px] border border-line bg-surface hover:border-accent hover:bg-accent/10 transition-all text-left group"
           >
             <div className="flex items-center gap-3">
-              <div className="w-10 h-10 rounded-lg bg-bg-subtle flex items-center justify-center flex-shrink-0">
-                <svg className="w-5 h-5 text-fg" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" viewBox="0 0 24 24">
+              <div className="w-10 h-10 rounded-lg bg-bg-subtle group-hover:bg-accent/20 flex items-center justify-center flex-shrink-0 transition-colors">
+                <svg className="w-5 h-5 text-fg group-hover:text-accent-hover transition-colors" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" viewBox="0 0 24 24">
                   <path d="M12 1v22M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6" />
                 </svg>
               </div>
               <div className="flex-1 min-w-0">
-                <p className="font-semibold text-fg">
+                <p className="font-semibold text-fg group-hover:text-accent-hover transition-colors">
                   {lang === 'es' ? 'Solo quiero vender' : 'I just want to sell'}
                 </p>
                 <p className="text-xs text-fg-subtle mt-0.5">
@@ -126,7 +126,7 @@ export function Step5Upgrade() {
             href={getCatalogUrl()}
             target="_blank"
             rel="noopener noreferrer"
-            className="flex items-center justify-center gap-2 mt-1 py-2.5 w-full rounded-xl border border-line bg-surface dark:bg-white/5 hover:bg-bg-subtle dark:hover:bg-white/8 text-fg-muted hover:text-fg text-xs transition-all"
+            className="flex items-center justify-center gap-2 mt-1 py-2.5 w-full rounded-xl border border-line bg-surface dark:bg-white/5 hover:border-accent hover:bg-accent/10 text-fg-muted hover:text-accent-hover text-xs transition-all"
           >
             <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
@@ -235,8 +235,8 @@ export function Step5Upgrade() {
                       }}
                       className={`flex items-center gap-2 px-3 py-2 rounded-xl border transition-all text-sm ${
                         state.upgradeColor === color
-                          ? 'border-fg bg-fg/[0.04] text-fg'
-                          : 'border-line bg-surface dark:bg-white/5 text-fg-muted hover:border-line-strong'
+                          ? 'border-accent bg-accent/10 text-accent-hover'
+                          : 'border-line bg-surface dark:bg-white/5 text-fg-muted hover:border-accent hover:bg-accent/10 hover:text-accent-hover'
                       }`}
                     >
                       <span

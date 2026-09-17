@@ -8,7 +8,7 @@ interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
 }
 
 /**
- * Botones FACE ID: primario negro, secundario blanco, WhatsApp amarillo de marca.
+ * Botones FACE ID: primario amarillo de marca, secundario outline, WhatsApp sólido.
  */
 export function Button({
   children,
@@ -28,9 +28,9 @@ export function Button({
   `
 
   const variants = {
-    primary: 'bg-cta text-cta-contrast hover:bg-cta-hover shadow-[0_1px_2px_rgba(31,41,55,0.12)] disabled:bg-fg/15 disabled:text-fg-muted disabled:shadow-none',
-    secondary: 'bg-surface text-fg border border-line-strong hover:bg-bg-subtle hover:border-fg/30 disabled:opacity-50',
-    outline: 'bg-transparent border border-line-strong text-fg hover:bg-fg/5 disabled:opacity-50',
+    primary: 'border border-accent bg-accent/10 text-accent-hover hover:bg-accent/15 shadow-none disabled:border-line disabled:bg-fg/8 disabled:text-fg-muted',
+    secondary: 'bg-surface text-fg border border-line-strong hover:border-accent hover:bg-accent/10 hover:text-accent-hover disabled:opacity-50',
+    outline: 'bg-transparent border border-line-strong text-fg hover:border-accent hover:bg-accent/10 hover:text-accent-hover disabled:opacity-50',
     whatsapp: 'bg-accent text-accent-contrast hover:bg-accent-hover shadow-[0_1px_2px_rgba(202,154,6,0.35)] disabled:opacity-50',
   }
 

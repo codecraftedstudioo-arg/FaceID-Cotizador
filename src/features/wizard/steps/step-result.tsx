@@ -206,20 +206,20 @@ export function StepResult() {
             </div>
 
             {/* Difference */}
-            <div className="p-5 min-h-[6rem] flex flex-col justify-center bg-cta rounded-[10px] text-cta-contrast">
-              <p className="text-cta-contrast/70 text-[11px] font-medium uppercase tracking-wider">
+            <div className="p-5 min-h-[6rem] flex flex-col justify-center rounded-[10px] border border-accent bg-accent/10">
+              <p className="text-accent-hover text-[11px] font-medium uppercase tracking-wider">
                 Precio final
               </p>
-              <p className="text-cta-contrast/80 text-xs mt-1">
+              <p className="text-fg-muted text-xs mt-1">
                 {upgradeCovers
                   ? (lang === 'es' ? 'Te queda a favor' : 'In your favor')
                   : (lang === 'es' ? 'Diferencia a pagar' : 'Difference to pay')}
               </p>
-              <p className="text-3xl font-bold font-display mt-1 animate-countUp tabular-nums">
+              <p className="text-3xl font-bold font-display mt-1 animate-countUp tabular-nums text-accent-hover">
                 {formatPrice(Math.abs(diff))}
               </p>
               {rate !== null && Math.abs(diff) > 0 && (
-                <p className="text-base font-semibold text-cta-contrast/75 mt-1 tabular-nums">
+                <p className="text-base font-semibold text-fg-muted mt-1 tabular-nums">
                   {(Math.abs(diff) * rate).toLocaleString('es-AR')} ARS
                 </p>
               )}
@@ -295,7 +295,7 @@ export function StepResult() {
                     <button
                       key={`${alt.model}-${alt.storage}-${alt.color}`}
                       onClick={() => handleSelectAlternative(alt)}
-                      className="w-full p-3.5 sm:p-4 rounded-[10px] border border-line bg-surface hover:bg-bg-subtle hover:border-line-strong transition-all text-left group"
+                      className="w-full p-3.5 sm:p-4 rounded-[10px] border border-line bg-surface hover:bg-accent/10 hover:border-accent transition-all text-left group"
                     >
                       <div className="flex items-center gap-3">
                         <div className="w-14 h-14 sm:w-16 sm:h-16 rounded-lg bg-bg-subtle dark:bg-white/5 border border-line flex items-center justify-center flex-shrink-0 overflow-hidden">
@@ -315,7 +315,7 @@ export function StepResult() {
                           />
                         </div>
                         <div className="flex-1 min-w-0">
-                          <p className="text-sm sm:text-base font-semibold text-fg leading-tight">
+                          <p className="text-sm sm:text-base font-semibold text-fg leading-tight group-hover:text-accent-hover transition-colors">
                             {alt.model}
                           </p>
                           <p className="text-xs text-fg-muted mt-1 leading-tight">
@@ -342,22 +342,22 @@ export function StepResult() {
       ) : (
         <>
           {/* Sell-only flow: sticky header */}
-          <div className="mb-4 p-5 rounded-[10px] bg-cta text-cta-contrast text-center animate-fadeSlideIn">
-            <p className="text-cta-contrast/70 text-[11px] font-medium uppercase tracking-wider mb-1">
+          <div className="mb-4 p-5 rounded-[10px] border border-accent bg-accent/10 text-center animate-fadeSlideIn">
+            <p className="text-accent-hover text-[11px] font-medium uppercase tracking-wider mb-1">
               Precio final
             </p>
-            <p className="text-[15px] text-cta-contrast/80 mb-1">
+            <p className="text-[15px] text-fg-muted mb-1">
               {lang === 'es' ? `Tu ${state.model} de ${formatStorage(state.storage ?? '')}` : `Your ${state.model} ${formatStorage(state.storage ?? '')}`}
             </p>
-            <p className="text-3xl sm:text-4xl font-bold font-display tracking-tight animate-countUp tabular-nums">
+            <p className="text-3xl sm:text-4xl font-bold font-display tracking-tight animate-countUp tabular-nums text-accent-hover">
               {formatPrice(offerResult.finalPrice)}
             </p>
             {rate !== null && (
-              <p className="text-lg font-semibold text-cta-contrast/75 mt-1 tabular-nums">
+              <p className="text-lg font-semibold text-fg-muted mt-1 tabular-nums">
                 {(offerResult.finalPrice * rate).toLocaleString('es-AR')} ARS
               </p>
             )}
-            <p className="text-cta-contrast/55 text-xs mt-2">{t('resultDisclaimer')}</p>
+            <p className="text-fg-subtle text-xs mt-2">{t('resultDisclaimer')}</p>
           </div>
         </>
       )}
@@ -406,7 +406,7 @@ export function StepResult() {
             href={buildInquiryLink(state, offerResult, { name: contactName || undefined, phone: contactPhone || undefined }, lang, rate ?? 0, upgradeInfo)}
             target="_blank"
             rel="noopener noreferrer"
-            className="mt-3 block w-full text-center min-h-12 px-4 py-3 text-sm font-semibold text-fg border border-line-strong hover:bg-bg-subtle rounded-[10px] transition-colors"
+            className="mt-3 block w-full text-center min-h-12 px-4 py-3 text-sm font-semibold text-fg border border-line-strong hover:border-accent hover:bg-accent/10 hover:text-accent-hover rounded-[10px] transition-colors"
           >
             {lang === 'es' ? '¿Tenés dudas? Consultanos' : 'Questions? Ask us'}
           </a>
@@ -416,7 +416,7 @@ export function StepResult() {
       <button
         type="button"
         onClick={handleShareQuote}
-        className="mt-3 w-full min-h-12 px-4 py-3 text-sm font-semibold text-fg border border-line-strong hover:bg-bg-subtle rounded-[10px] transition-colors flex items-center justify-center gap-2"
+        className="mt-3 w-full min-h-12 px-4 py-3 text-sm font-semibold text-fg border border-line-strong hover:border-accent hover:bg-accent/10 hover:text-accent-hover rounded-[10px] transition-colors flex items-center justify-center gap-2"
         aria-live="polite"
       >
         <ShareIcon />

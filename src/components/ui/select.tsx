@@ -50,20 +50,18 @@ export function Select({
         className={`
           w-full min-h-12 px-4 py-3 rounded-[10px] text-left text-[15px]
           flex items-center justify-between
-          border bg-surface transition-all duration-200
+          border transition-all duration-200
           ${disabled
             ? 'border-line text-fg-subtle cursor-not-allowed bg-bg-subtle'
-            : isOpen
-              ? 'border-fg text-fg shadow-sm'
-              : 'border-line text-fg hover:border-line-strong'
+            : 'border-accent bg-accent/10 text-accent-hover hover:bg-accent/15'
           }
         `}
       >
-        <span className={selectedOption ? 'text-fg' : 'text-fg-subtle'}>
+        <span className={selectedOption ? 'text-accent-hover' : 'text-fg-subtle'}>
           {selectedOption?.label || placeholder}
         </span>
         <svg
-          className={`w-5 h-5 text-fg-subtle shrink-0 transition-transform duration-200 ${isOpen ? 'rotate-180' : ''}`}
+          className={`w-5 h-5 shrink-0 transition-transform duration-200 ${isOpen ? 'rotate-180' : ''} ${disabled ? 'text-fg-subtle' : 'text-accent-hover'}`}
           fill="none"
           stroke="currentColor"
           viewBox="0 0 24 24"
@@ -73,7 +71,7 @@ export function Select({
       </button>
 
       {isOpen && (
-        <div className="absolute z-50 w-full mt-2 py-1.5 bg-surface border border-line rounded-[10px] shadow-[0_12px_32px_rgba(31,41,55,0.12)] max-h-60 overflow-y-auto">
+        <div className="absolute z-50 w-full mt-2 py-1.5 bg-surface border border-accent rounded-[10px] shadow-[0_12px_32px_rgba(31,41,55,0.12)] max-h-60 overflow-y-auto">
           {options.map((option) => (
             <button
               key={option.value}
@@ -85,8 +83,8 @@ export function Select({
               className={`
                 w-full px-4 py-3 text-left text-[15px] transition-colors
                 ${option.value === value
-                  ? 'bg-accent/15 text-fg font-medium'
-                  : 'text-fg hover:bg-bg-subtle'
+                  ? 'bg-accent/10 text-accent-hover font-medium'
+                  : 'text-fg hover:bg-accent/10 hover:text-accent-hover'
                 }
               `}
             >
