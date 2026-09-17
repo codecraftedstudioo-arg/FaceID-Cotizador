@@ -3,6 +3,7 @@ import { useWizard } from '../hooks/use-wizard'
 import { useI18n } from '@/lib/i18n'
 import { calculatePrice, formatPrice, formatStorage, getDisplayedOfferPrice } from '@/lib/pricing-engine'
 import { buildWhatsAppLink, buildInquiryLink } from '@/lib/whatsapp-builder'
+import { buildQuoteSharePayload, shareQuote } from '@/lib/quote-share'
 import type { UpgradeInfo } from '@/features/wizard/types'
 import { useExchangeRate } from '@/lib/use-exchange-rate'
 import { useState } from 'react'
@@ -105,6 +106,7 @@ export function StepResult() {
     } catch { /* ignore */ }
   }
   const [altsExpanded, setAltsExpanded] = useState(false)
+  const [shareStatus, setShareStatus] = useState<'idle' | 'copied' | 'failed'>('idle')
 
   // Calcular alternativas si es canje, la diferencia es alta, y el usuario NO eligió una alternativa todavía.
   // Una vez que elige una, dejamos de mostrar más alternativas (solo queda el botón "Volver al original").
@@ -140,6 +142,32 @@ export function StepResult() {
     })
     setOriginalUpgrade(null)
     if (typeof window !== 'undefined') window.scrollTo({ top: 0, behavior: 'smooth' })
+  }
+
+  const displayedPrice = upgradeInfo ? Math.abs(diff) : offerResult.finalPrice
+  const handleShareQuote = async () => {
+    const result = await shareQuote(buildQuoteSharePayload({
+      lang,
+      brandName: tenant.brand.name,
+      model: state.model ?? '',
+      storage: state.storage ?? '',
+      price: displayedPrice,
+      arsAmount: rate !== null ? displayedPrice * rate : null,
+      disclaimer: t('resultDisclaimer'),
+      url: `${window.location.origin}/`,
+      upgrade: upgradeInfo
+        ? {
+            model: upgradeInfo.model,
+            storage: upgradeInfo.storage,
+            difference: diff,
+            covers: Boolean(upgradeCovers),
+          }
+        : null,
+    }))
+    if (result === 'copied' || result === 'failed') {
+      setShareStatus(result)
+      window.setTimeout(() => setShareStatus('idle'), 2000)
+    }
   }
 
   const deductionsBlock = priceResult.deductionBreakdown.length > 0 ? (
@@ -386,6 +414,20 @@ export function StepResult() {
       )}
 
       <button
+        type="button"
+        onClick={handleShareQuote}
+        className="mt-3 w-full min-h-12 px-4 py-3 text-sm font-semibold text-fg border border-line-strong hover:bg-bg-subtle rounded-[10px] transition-colors flex items-center justify-center gap-2"
+        aria-live="polite"
+      >
+        <ShareIcon />
+        {shareStatus === 'copied'
+          ? (lang === 'es' ? '¡Copiado!' : 'Copied!')
+          : shareStatus === 'failed'
+            ? (lang === 'es' ? 'No se pudo compartir' : 'Could not share')
+            : (lang === 'es' ? 'Compartir cotización' : 'Share quote')}
+      </button>
+
+      <button
         onClick={reset}
         className="mt-4 flex items-center justify-center gap-1.5 text-fg-subtle hover:text-fg-muted text-xs transition-colors mx-auto underline underline-offset-2 decoration-fg/20 hover:decoration-fg/40"
       >
@@ -398,6 +440,15 @@ export function StepResult() {
       </button>
 
     </Card>
+  )
+}
+
+function ShareIcon() {
+  return (
+    <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2} aria-hidden="true">
+      <path strokeLinecap="round" strokeLinejoin="round" d="M4 12v8a2 2 0 002 2h12a2 2 0 002-2v-8" />
+      <path strokeLinecap="round" strokeLinejoin="round" d="M16 6l-4-4-4 4M12 2v13" />
+    </svg>
   )
 }
 
