@@ -20,14 +20,14 @@ import { IPhoneFrame } from './components/iphone-frame'
 import { SideInfo } from './components/side-info'
 import { tenant, getWhatsAppUrl, getMapsUrl } from '@/config/tenant'
 
-const TOTAL_STEPS = 6
+const TOTAL_STEPS = tenant.features.contactStep ? 6 : 5
 
 /**
  * Wizard page: cotizador real dentro del mockup iPhone original.
  */
 export function WizardPage() {
   const navigate = useNavigate()
-  const { state, prevStep, canjeMode } = useWizard()
+  const { state, prevStep, canjeMode, goToStep } = useWizard()
   useI18n() // Keep provider active
   const { rate } = useExchangeRate()
   const pricingReady = usePricingReady()
@@ -39,6 +39,13 @@ export function WizardPage() {
       contentRef.current.scrollTo({ top: 0, behavior: 'smooth' })
     }
   }, [currentStep])
+
+  // Conservamos Step6Contact, pero si el flag está apagado no se muestra.
+  useEffect(() => {
+    if (!tenant.features.contactStep && currentStep === 6) {
+      goToStep(7)
+    }
+  }, [currentStep, goToStep])
 
   const renderStep = () => {
     switch (currentStep) {

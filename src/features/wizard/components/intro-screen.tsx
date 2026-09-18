@@ -317,7 +317,7 @@ export function IntroScreen() {
             <ThemeToggle />
             <button
               onClick={startCotizar}
-              className="hidden md:inline-flex items-center justify-center px-4 py-2 rounded-[10px] text-sm font-semibold bg-accent text-accent-contrast hover:bg-accent-hover transition-colors"
+              className="hidden md:inline-flex items-center justify-center px-4 py-2 rounded-[10px] text-sm font-semibold bg-[#25D366] text-white hover:bg-[#1DA851] transition-colors"
             >
               Cotizar ahora
             </button>
@@ -412,7 +412,7 @@ export function IntroScreen() {
               )}
               <button
                 onClick={() => { setMenuOpen(false); startCotizar() }}
-                className="mt-2 mx-3 min-h-12 rounded-[10px] bg-accent text-accent-contrast font-semibold text-sm hover:bg-accent-hover transition-colors"
+                className="mt-2 mx-3 min-h-12 rounded-[10px] bg-[#25D366] text-white font-semibold text-sm hover:bg-[#1DA851] transition-colors"
               >
                 Cotizar ahora
               </button>
@@ -429,11 +429,11 @@ export function IntroScreen() {
             <img
               src={tenant.brand.heroMobile}
               alt=""
-              className="hero-background absolute inset-0 h-full w-full object-cover object-[50%_18%] md:object-center scale-[1.06] blur-[2px]"
+              className="hero-background absolute inset-0 h-full w-full object-cover object-[50%_18%] md:object-center scale-[1.03] blur-[1px] brightness-110"
             />
           </picture>
-          <div className="absolute inset-0 bg-[#0f172a]/55 md:bg-[#0f172a]/48" />
-          <div className="absolute inset-0 bg-gradient-to-b from-[#111827]/35 via-transparent to-[#0f172a]/55 max-md:from-[#111827]/45 max-md:to-[#0f172a]/62" />
+          <div className="absolute inset-0 bg-[#0f172a]/38 md:bg-[#0f172a]/32" />
+          <div className="absolute inset-0 bg-gradient-to-b from-[#111827]/25 via-transparent to-[#0f172a]/40 max-md:from-[#111827]/30 max-md:to-[#0f172a]/48" />
         </div>
 
         <div className="relative z-10 mx-auto flex min-h-[650px] w-full max-w-3xl flex-col items-center justify-center px-6 py-16 text-center sm:min-h-[700px] sm:px-8 sm:py-20 md:min-h-[740px] lg:min-h-[780px] lg:py-24">
@@ -450,7 +450,7 @@ export function IntroScreen() {
           <div className="mb-10 animate-fadeSlideIn" style={{ animationDelay: '0.12s' }}>
             <button
               onClick={startCotizar}
-              className="inline-flex items-center justify-center gap-2 px-7 py-3.5 min-h-12 rounded-[10px] text-[15px] font-semibold bg-accent text-accent-contrast hover:bg-accent-hover transition-colors animate-cta-twinkle"
+              className="inline-flex items-center justify-center gap-2 px-7 py-3.5 min-h-12 rounded-[10px] text-[15px] font-semibold bg-[#25D366] text-white hover:bg-[#1DA851] transition-colors animate-cta-twinkle"
             >
               Cotizar ahora
               <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>

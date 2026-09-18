@@ -62,6 +62,8 @@ export type TenantConfig = {
     analytics: boolean
     comparator: boolean
     tradeIn: boolean
+    /** Paso de nombre/WhatsApp antes del resultado. false = oculto (código conservado). */
+    contactStep: boolean
   }
   seo: {
     title: string
@@ -131,6 +133,7 @@ export const tenant: TenantConfig = {
     analytics: false,
     comparator: true,
     tradeIn: true,
+    contactStep: false,
   },
   seo: {
     title: 'FACE ID | Cotizador',

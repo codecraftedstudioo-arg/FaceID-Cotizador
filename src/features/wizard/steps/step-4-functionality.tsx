@@ -1,6 +1,7 @@
 import { Card, CardHeader, Button } from '@/components/ui'
 import { useWizard } from '../hooks/use-wizard'
 import { useI18n } from '@/lib/i18n'
+import { tenant } from '@/config/tenant'
 
 // Icons for functionality issues
 const FaceIdIcon = () => (
@@ -148,7 +149,9 @@ export function Step4Functionality() {
       </div>
 
       <Button onClick={nextStep} fullWidth className="mt-6">
-        {lang === 'es' ? 'Continuar' : 'Continue'}
+        {tenant.features.contactStep
+          ? (lang === 'es' ? 'Continuar' : 'Continue')
+          : (lang === 'es' ? 'Ver mi cotización' : 'See my quote')}
       </Button>
     </Card>
   )

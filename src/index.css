@@ -267,7 +267,7 @@ html, body {
     transform: scale(1);
   }
   80% {
-    box-shadow: 0 0 8px rgba(234, 179, 8, 0.55), 0 0 22px rgba(234, 179, 8, 0.35);
+    box-shadow: 0 0 8px rgba(37, 211, 102, 0.55), 0 0 22px rgba(37, 211, 102, 0.35);
     transform: scale(1.06);
   }
   100% {

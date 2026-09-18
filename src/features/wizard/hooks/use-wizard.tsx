@@ -8,6 +8,7 @@ import type {
   FunctionalityIssues,
   OriginalParts,
 } from '../types'
+import { tenant } from '@/config/tenant'
 
 // Initial state
 const initialState: WizardState = {
@@ -195,6 +196,8 @@ function loadState(): WizardState {
         ...parsed,
         originalParts: { ...initialState.originalParts, ...parsed.originalParts },
         functionalityIssues: { ...initialState.functionalityIssues, ...parsed.functionalityIssues },
+        // Si el paso de contacto está oculto, no reabrir una sesión vieja en ese step.
+        currentStep: !tenant.features.contactStep && parsed.currentStep === 6 ? 7 : parsed.currentStep,
       }
     }
   } catch (e) {
@@ -257,13 +260,25 @@ export function WizardProvider({ children }: { children: ReactNode }) {
     canjeMode,
     setCanjeMode,
     nextStep: () => {
-      if (state.currentStep === 6 && celebrationRef.current) {
+      const lastInputStep = tenant.features.contactStep ? 6 : 5
+      if (state.currentStep === lastInputStep && celebrationRef.current) {
         celebrationRef.current.currentTime = 0
         celebrationRef.current.play().catch(() => {})
       }
+      // Paso de contacto (6) oculto: de funcionalidad se salta al resultado.
+      if (!tenant.features.contactStep && state.currentStep === 5) {
+        dispatch({ type: 'GO_TO_STEP', payload: 7 })
+        return
+      }
       dispatch({ type: 'NEXT_STEP' })
     },
-    prevStep: () => dispatch({ type: 'PREV_STEP' }),
+    prevStep: () => {
+      if (!tenant.features.contactStep && state.currentStep === 7) {
+        dispatch({ type: 'GO_TO_STEP', payload: 5 })
+        return
+      }
+      dispatch({ type: 'PREV_STEP' })
+    },
     goToStep: (step) => dispatch({ type: 'GO_TO_STEP', payload: step }),
     reset: () => {
       sessionStorage.removeItem(STORAGE_KEY)

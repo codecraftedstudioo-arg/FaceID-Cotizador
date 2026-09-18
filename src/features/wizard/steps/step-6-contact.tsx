@@ -10,6 +10,9 @@ import { getPhoneCountryCode } from '@/config/tenant'
 /**
  * Step 6: Contact info (mandatory before showing result).
  * Sends lead to CRM and then advances to the result.
+ *
+ * Oculto por ahora: `tenant.features.contactStep = false`.
+ * No borrar — se reactiva poniendo el flag en true.
  */
 export function Step6Contact() {
   const { state, setContactName, setContactPhone, nextStep } = useWizard()
